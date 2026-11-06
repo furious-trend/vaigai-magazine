@@ -1,0 +1,33 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+Thumbs.db
+
+# Root duplicates (audio and raw files are organized under public/assets/)
+NEWSLETTER final . (1).pdf (1).pdf
+Gemini_Generated_Image_l63acnl63acnl63a.png
+background bgm for magazine.m4a
+sentiment bgm.mp3
+page flip sound.mp3

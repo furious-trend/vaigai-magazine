@@ -1,0 +1,35 @@
+{
+  "name": "vaigais-ikigai-magazine",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "verify-content": "node scripts/verify-content.mjs"
+  },
+  "dependencies": {
+    "@fontsource/caveat": "^5.1.0",
+    "@fontsource/dm-sans": "^5.1.0",
+    "@fontsource/newsreader": "^5.1.0",
+    "@fontsource/noto-serif-tamil": "^5.1.0",
+    "@fontsource/playfair-display": "^5.1.0",
+    "canvas-confetti": "^1.9.4",
+    "clsx": "^2.1.1",
+    "gsap": "^3.12.5",
+    "howler": "^2.2.4",
+    "lucide-react": "^0.475.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "page-flip": "^2.0.7",
+    "react-pageflip": "^2.0.3"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "playwright": "^1.50.1",
+    "vite": "^6.1.1"
+  }
+}

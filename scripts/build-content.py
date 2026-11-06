@@ -1,0 +1,705 @@
+import json
+import os
+import fitz
+
+def main():
+    doc = fitz.open("source/newsletter.pdf")
+    
+    # We will build the complete content object
+    content = {
+        "meta": {
+            "title": "VAIGAI'S IKIGAI",
+            "tagline": "Where Purpose Meets Possibility.",
+            "subtitle": "The Bimonthly Newsletter of Vaigai College of Engineering",
+            "volume": "VOL. 01",
+            "issue": "ISSUE 01",
+            "period": "JULY – AUGUST 2026",
+            "college": "Vaigai College of Engineering",
+            "location": "Madurai",
+            "address": "Vinayagapuram, Therkutheru, Madurai - 625122",
+            "website": "www.vaigai.org",
+            "email": "vaigaioffice@gmail.com",
+            "totalPages": 62
+        },
+        "editorial": {
+            "title": "Editorial Team",
+            "members": [
+                {
+                    "name": "Dr. Sivaranjani. R",
+                    "designation": "Principal (i/c) & Prof/ECE.",
+                    "institution": "VaigaiCollege of Engineering, Madurai."
+                },
+                {
+                    "name": "Ms. Aswini. R",
+                    "designation": "Assitant Professor of English.",
+                    "institution": "Vaigai College of Engineering, Madurai."
+                },
+                {
+                    "name": "Ms. Supriya. R.J",
+                    "designation": "Assitant Professor of English.",
+                    "institution": "Vaigai College of Engineering, Madurai."
+                }
+            ]
+        },
+        "toc": [
+            { "page": 4, "title": "What is Vaigai's Ikigai?", "section": "Vision" },
+            { "page": 5, "title": "About Vaigai College", "section": "Institution" },
+            { "page": 6, "title": "Department-wise Activities (Divider)", "section": "Academics" },
+            { "page": 8, "title": "Civil: RACE Inauguration Ceremony", "section": "Civil" },
+            { "page": 10, "title": "Mechanical: MESA-2026 Inaugural Function", "section": "Mechanical" },
+            { "page": 12, "title": "ECE & EEE: Embedded Systems and IoT Workshop", "section": "ECE & EEE" },
+            { "page": 14, "title": "Cells, Clubs and Institutional Activities (Divider)", "section": "Clubs" },
+            { "page": 16, "title": "Faculty Development Programme (FDC)", "section": "FDC" },
+            { "page": 18, "title": "YRC & RRC: Health Awareness Programme", "section": "YRC & RRC" },
+            { "page": 20, "title": "NSS, YRC & RRC: Blood Donation Camp", "section": "Social Service" },
+            { "page": 22, "title": "RRC: State-Level Online Quiz Competition", "section": "RRC" },
+            { "page": 24, "title": "Anti-Drug Club: Awareness & Wellness", "section": "Anti-Drug" },
+            { "page": 26, "title": "EDC: Entrepreneurship & Innovation Programme", "section": "EDC" },
+            { "page": 28, "title": "NSS: 78th Independence Day Celebration", "section": "NSS" },
+            { "page": 30, "title": "Anna University Rank Holders", "section": "Honours" },
+            { "page": 32, "title": "Training and Placement Cell (Divider)", "section": "Placement" },
+            { "page": 34, "title": "Expert Talk: Habits of High Performers", "section": "TPC" },
+            { "page": 36, "title": "On-Campus Recruitment Drive: Beasant Tech", "section": "TPC" },
+            { "page": 38, "title": "Selected Students: JRIP (16 Students)", "section": "TPC" },
+            { "page": 40, "title": "Pooled Campus Recruitment: INOVONZ", "section": "TPC" },
+            { "page": 42, "title": "Off-Campus Recruitment: Newrta Solutions", "section": "TPC" },
+            { "page": 44, "title": "Selected Student: S. Maadhesh", "section": "TPC" },
+            { "page": 46, "title": "TACT – Level 1 Guidance Programme", "section": "TPC" },
+            { "page": 48, "title": "Achievements (Divider)", "section": "Achievements" },
+            { "page": 50, "title": "Programmes Attended by Faculty Members (1–16)", "section": "Faculty" },
+            { "page": 52, "title": "Student Achievement: Vairamuthu Speech Contest", "section": "Students" },
+            { "page": 54, "title": "Faculty Publications in Reputed Journals", "section": "Research" },
+            { "page": 56, "title": "NPTEL Toppers – October 2025", "section": "NPTEL" },
+            { "page": 58, "title": "NPTEL Toppers – April 2026", "section": "NPTEL" },
+            { "page": 60, "title": "Closing Spread: Amma's Blessings", "section": "Closing" }
+        ],
+        "ikigai": {
+            "title": "What is Vaigai's Ikigai?",
+            "lines": [
+                { "letter": "V", "word": "Vision", "text": "The Vision that drives us." },
+                { "letter": "A", "word": "Achievements", "text": "The Achievements that define us." },
+                { "letter": "I", "word": "Intelligence", "text": "The Intelligence that inspires us." },
+                { "letter": "G", "word": "Greatness", "text": "The Greatness we nurture." },
+                { "letter": "A", "word": "Academic", "text": "The Academic aspirations we pursue." },
+                { "letter": "I", "word": "Innovations", "text": "The Innovations through which we create impact." }
+            ]
+        },
+        "aboutCollege": {
+            "title": "About Vaigai College",
+            "paragraphs": [
+                "Vaigai College of Engineering (VCE) was established in 2012 under the Vaigai Educational Trust (VET), Madurai, with the vision of providing quality technical education and nurturing socially responsible global citizens. With a commitment to making quality technical education accessible to students from diverse backgrounds, the institution promotes inclusive and value-based education. Approved by the All India Council for Technical Education (AICTE), New Delhi, and affiliated with Anna University, Chennai, VCE is spread across a serene 15-acre campus that provides a conducive environment for learning.",
+                "The campus is equipped with well-designed academic and administrative facilities, including lecture halls, tutorial and drawing halls, an auditorium, library, computer centre, laboratories and spacious playgrounds. It also houses hostel facilities, a canteen and a training and placement cell to support students’ academic, professional and entrepreneurial development. Vaigai College strives to foster academic excellence, creativity, leadership, professional competence and social responsibility, inspiring young minds to become skilled, confident and responsible contributors to society."
+            ],
+            "image": "/assets/images/events/p01_img02.webp"
+        },
+        "dividers": {
+            "departments": {
+                "num": "01",
+                "title": "Department-wise Activities",
+                "whisper": "She teaches us to build, one brick, one circuit, one idea at a time.",
+                "items": [
+                    { "title": "Civil Engineering: RACE Inauguration", "date": "21 July 2026", "page": 8 },
+                    { "title": "Mechanical Engineering: MESA-2026", "date": "19 August 2026", "page": 10 },
+                    { "title": "ECE & EEE: Embedded Systems and IoT Workshop", "date": "27 July – 3 August 2026", "page": 12 }
+                ]
+            },
+            "clubs": {
+                "num": "02",
+                "title": "Cells, Clubs and Institutional Activities",
+                "whisper": "She taught us we are never only students. We are helpers, givers, citizens.",
+                "items": [
+                    { "title": "Faculty Development Cell: IIC & YOU", "date": "31 July 2026", "page": 16 },
+                    { "title": "Youth Red Cross & Red Ribbon Club: Health Awareness", "date": "27 July 2026", "page": 18 },
+                    { "title": "NSS, YRC & RRC: Blood Donation Camp", "date": "31 July 2026", "page": 20 },
+                    { "title": "RRC: State-Level Online Quiz Competition", "date": "12 August 2026", "page": 22 },
+                    { "title": "Anti-Drug Club: Awareness & Wellness", "date": "11 August 2026", "page": 24 },
+                    { "title": "Entrepreneurship Development Cell (EDC)", "date": "13 August 2026", "page": 26 },
+                    { "title": "NSS: 78th Independence Day Celebration", "date": "15 August 2026", "page": 28 },
+                    { "title": "Anna University Rank Holders Spotlight", "date": "2021-2025 Batch", "page": 30 }
+                ]
+            },
+            "placement": {
+                "num": "03",
+                "title": "Training and Placement Cell (TPC)",
+                "whisper": "She watches us step out of the door, and quietly prays the world is kind.",
+                "items": [
+                    { "title": "Expert Talk: Habits of High Performers", "date": "8 July 2026", "page": 34 },
+                    { "title": "On-Campus Drive: Beasant Technologies", "date": "10 August 2026", "page": 36 },
+                    { "title": "Selected Students: JRIP (16 Students)", "date": "2026", "page": 38 },
+                    { "title": "Pooled Campus Drive: INOVONZ ENGINEERICS", "date": "18 August 2026", "page": 40 },
+                    { "title": "Off-Campus Drive: Newrta Solutions", "date": "19 August 2026", "page": 42 },
+                    { "title": "Selected Student: S. Maadhesh", "date": "20 August 2026", "page": 44 },
+                    { "title": "TACT – Level 1 Guidance Programme", "date": "20 August 2026", "page": 46 }
+                ]
+            },
+            "achievements": {
+                "num": "04",
+                "title": "Achievements",
+                "whisper": "Every prize we win, she keeps in her heart first.",
+                "items": [
+                    { "title": "Programmes Attended by Faculty Members", "date": "July – August 2026", "page": 50 },
+                    { "title": "Student Achievement: Vairamuthu Speech Contest", "date": "01 August 2026", "page": 52 },
+                    { "title": "Faculty Publications in Reputed Journals", "date": "2026", "page": 54 },
+                    { "title": "NPTEL Toppers – October 2025", "date": "October 2025", "page": 56 },
+                    { "title": "NPTEL Toppers – April 2026", "date": "April 2026", "page": 58 }
+                ]
+            }
+        },
+        "events": [
+            {
+                "id": "civil-race",
+                "spread": 4,
+                "leftPage": 8,
+                "rightPage": 9,
+                "section": "departments",
+                "kicker": "DEPARTMENT OF CIVIL ENGINEERING",
+                "title": "Inauguration Ceremony of Civil Association",
+                "date": "21 July 2026",
+                "dateBadge": { "day": "21", "month": "JUL", "year": "2026" },
+                "venue": "ML-2",
+                "body": [
+                    [
+                        { "text": "The Department of Civil Engineering, in association with ", "bold": False, "italic": False },
+                        { "text": "RACE – Royal Association of Civil Engineering", "bold": True, "italic": False },
+                        { "text": ", organized the Inauguration Ceremony of RACE – Royal Association of Civil Engineering on 21 July 2026 at ML-2. Dr. R. Sivaranjani, Principal (i/c), presided over the function. Dr. A. V. S. Santhosh Kumar, Dean/Admin, delivered the special address. Er. C. Kaliraj, Chief Guest, delivered the keynote address and spoke about recent trends and career opportunities in the civil engineering sector. Dr. N. Balaganesh, HOD/Civil, extended his support and guidance for the programme. All faculty members and students of the Civil Engineering Department actively participated in the ceremony.", "bold": False, "italic": False }
+                    ]
+                ],
+                "heroImage": "/assets/images/events/p05_img01.webp",
+                "galleryImages": [
+                    { "src": "/assets/images/events/p05_img02.webp", "caption": "Dignitaries lighting the ceremonial kuthuvilakku" },
+                    { "src": "/assets/images/events/p05_img03.webp", "caption": "Chief Guest Er. C. Kaliraj delivering keynote address" },
+                    { "src": "/assets/images/events/p05_img04.webp", "caption": "Students and faculty at the inaugural session" }
+                ],
+                "numbers": [],
+                "sourcePages": [4, 5]
+            },
+            {
+                "id": "mech-mesa",
+                "spread": 5,
+                "leftPage": 10,
+                "rightPage": 11,
+                "section": "departments",
+                "kicker": "DEPARTMENT OF MECHANICAL ENGINEERING",
+                "title": "Inaugural Function of Mechanical Engineers Student Association (MESA–2026)",
+                "date": "19 August 2026",
+                "dateBadge": { "day": "19", "month": "AUG", "year": "2026" },
+                "venue": "Dr. Abdul Kalam Auditorium",
+                "body": [
+                    [
+                        { "text": "The Department of Mechanical Engineering organized the Inaugural Function of the Mechanical Engineers Student Association (MESA–2026) on 19 August 2026 at the Dr. Abdul Kalam Auditorium from 11:00 a.m. to 12:45 p.m. Dr. R. Sivaranjani, Principal (i/c), delivered the presidential address. Dr. B. Sujatha, Dean/Academics, delivered the special address, while Dr. A. V. S. Santhosh Kumar, Dean/Admin, offered felicitations. The chief guest, Er. R. Senthil Kumar, Head – Business Development & Technical Trainer, delivered a guest lecture on \"Design and 3D Printing Technology\". Dr. S. Mohanasundaram, HOD/Mech, actively supported and guided the programme. All faculty members and students of the department participated in the event.", "bold": False, "italic": False }
+                    ]
+                ],
+                "heroImage": "/assets/images/events/p07_img01.webp",
+                "galleryImages": [
+                    { "src": "/assets/images/events/p07_img02.webp", "caption": "Chief guest Er. R. Senthil Kumar addressing mechanical students" }
+                ],
+                "numbers": [],
+                "sourcePages": [6, 7]
+            },
+            {
+                "id": "ece-eee-iot",
+                "spread": 6,
+                "leftPage": 12,
+                "rightPage": 13,
+                "section": "departments",
+                "kicker": "DEPARTMENT OF ELECTRONICS & COMMUNICATION ENGINEERING AND ELECTRICAL & ELECTRONICS ENGINEERING",
+                "title": "Workshop on Embedded Systems and IoT",
+                "date": "27 July – 3 August 2026",
+                "dateBadge": { "day": "27", "month": "JUL", "year": "2026" },
+                "venue": "ML- 3",
+                "body": [
+                    [
+                        { "text": "The Departments of Electronics and Communication Engineering (ECE) and Electrical and Electronics Engineering (EEE) jointly organized a One-Week Workshop on Embedded Systems and IoT from 27 July to 3 August 2026 at ML- 3. The programme was conducted by professional trainers from Enthu Technology Solutions India Pvt. Ltd., Coimbatore. Dr. R. Sivaranjani, Principal (i/c), presided over the function, with Dr. A. V. S. Santhosh Kumar, Dean/Admin, and Dr. B. Sujatha, Dean/Academics, offering felicitations. A total of ", "bold": False, "italic": False },
+                        { "text": "38 students", "bold": True, "italic": False },
+                        { "text": " from the ECE and EEE departments actively participated and gained hands-on experience in Embedded Systems and IoT technologies.", "bold": False, "italic": False }
+                    ]
+                ],
+                "heroImage": "/assets/images/events/p09_img01.webp",
+                "galleryImages": [
+                    { "src": "/assets/images/events/p09_img02.webp", "caption": "Students working on embedded development kits" }
+                ],
+                "numbers": [
+                    { "value": 38, "label": "38 students participated" }
+                ],
+                "sourcePages": [8, 9]
+            },
+            {
+                "id": "cells-fdc",
+                "spread": 8,
+                "leftPage": 16,
+                "rightPage": 17,
+                "section": "clubs",
+                "kicker": "FACULTY DEVELOPMENT CELL",
+                "title": "Faculty Development Programme",
+                "date": "31 July 2026",
+                "dateBadge": { "day": "31", "month": "JUL", "year": "2026" },
+                "venue": "Dr. Abdul Kalam Auditorium",
+                "body": [
+                    [
+                        { "text": "The Faculty Development Cell (FDC) of Vaigai College of Engineering organized a Faculty Development Programme titled ", "bold": False, "italic": False },
+                        { "text": "“IIC & YOU: Building an Innovation Culture”", "bold": True, "italic": False },
+                        { "text": " on 31 July 2026 at the Dr. Abdul Kalam Auditorium from 3:00 p.m. to 4:45 p.m. Dr. R. Sivaranjani, Principal (i/c), delivered the presidential address, while Dr. A. V. S. Santhosh Kumar, Dean/Admin, and Dr. B. Sujatha, Dean/Academics, offered felicitations. The resource person, Dr. G. S. Uthayakumar, Professor and President – IIC, Solamalai College of Engineering, Madurai, delivered a talk on fostering innovation, entrepreneurship and research culture among faculty members. Faculty members from various departments attended the programme.", "bold": False, "italic": False }
+                    ]
+                ],
+                "heroImage": "/assets/images/events/p11_img01.webp",
+                "galleryImages": [],
+                "isPoster": True,
+                "numbers": [],
+                "sourcePages": [10, 11]
+            },
+            {
+                "id": "yrc-rrc-health",
+                "spread": 9,
+                "leftPage": 18,
+                "rightPage": 19,
+                "section": "clubs",
+                "kicker": "YOUTH RED CROSS AND RED RIBBON CLUB",
+                "title": "Health Awareness Programme",
+                "date": "27 July 2026",
+                "dateBadge": { "day": "27", "month": "JUL", "year": "2026" },
+                "venue": "Dr. Abdul Kalam Auditorium",
+                "body": [
+                    [
+                        { "text": "The Youth Red Cross (YRC) and Red Ribbon Club (RRC) organized a Health Awareness Programme on 27 July 2026 for students from all departments. Dr. M. Janaki, M.B.B.S., D.G.O., Medical Officer, Government Primary Health Centre, M. Puliyankulam, served as the chief guest and delivered an informative awareness lecture on youth health, nutrition and disease prevention. The programme was conducted under the leadership of Dr. R. Sivaranjani, Principal (i/c), with the support of Dr. A. V. S. Santhosh Kumar, Dean/Admin, and Dr. B. Sujatha, Dean/Academics. Students actively participated and interacted with the medical expert during the session.", "bold": False, "italic": False }
+                    ]
+                ],
+                "heroImage": "/assets/images/events/p13_img01.webp",
+                "galleryImages": [
+                    { "src": "/assets/images/events/p13_img02.webp", "caption": "Dr. M. Janaki presenting health guidelines to students" },
+                    { "src": "/assets/images/events/p13_img03.webp", "caption": "Interactive Q&A session with attendees" },
+                    { "src": "/assets/images/events/p13_img04.webp", "caption": "Faculty felicitation of the chief guest" }
+                ],
+                "numbers": [],
+                "sourcePages": [12, 13]
+            },
+            {
+                "id": "nss-blood-donation",
+                "spread": 10,
+                "leftPage": 20,
+                "rightPage": 21,
+                "section": "clubs",
+                "kicker": "NATIONAL SERVICE SCHEME (NSS), YRC & RRC",
+                "title": "Blood Donation Camp",
+                "date": "31 July 2026",
+                "dateBadge": { "day": "31", "month": "JUL", "year": "2026" },
+                "venue": "College Campus",
+                "body": [
+                    [
+                        { "text": "The National Service Scheme (NSS), Youth Red Cross (YRC), and Red Ribbon Club (RRC) organized a Blood Donation Camp on 31 July 2026 in collaboration with Meenakshi Mission Hospital, Madurai. ", "bold": False, "italic": False },
+                        { "text": "More than 50 students", "bold": True, "italic": False },
+                        { "text": " and staff members voluntarily registered for the camp, and ", "bold": False, "italic": False },
+                        { "text": "40 units", "bold": True, "italic": False },
+                        { "text": " of blood were collected. Dr. R. Sivaranjani, Principal (i/c), Dr. A. V. S. Santhosh Kumar, Dean/Admin, and Dr. B. Sujatha, Dean/Academics, congratulated the student volunteers and blood donors for their noble contribution to society.", "bold": False, "italic": False }
+                    ]
+                ],
+                "heroImage": "/assets/images/events/p15_img01.webp",
+                "galleryImages": [],
+                "numbers": [
+                    { "value": 50, "label": "More than 50 students registered" },
+                    { "value": 40, "label": "40 units collected" }
+                ],
+                "sourcePages": [14, 15]
+            },
+            {
+                "id": "rrc-quiz",
+                "spread": 11,
+                "leftPage": 22,
+                "rightPage": 23,
+                "section": "clubs",
+                "kicker": "RED RIBBON CLUB (RRC)",
+                "title": "State-Level Online Quiz Competition on HIV/STI Awareness",
+                "date": "12 August 2026",
+                "dateBadge": { "day": "12", "month": "AUG", "year": "2026" },
+                "venue": "Online Portal",
+                "body": [
+                    [
+                        { "text": "The Red Ribbon Club (RRC) organized the TNSACS Quiz Competition – 2026, a State-Level Online Quiz Competition, on 12 August 2026 under the Intensified IEC Campaign 3.0. ", "bold": False, "italic": False },
+                        { "text": "More than 140 students", "bold": True, "italic": False },
+                        { "text": " participated in the competition, which focused on HIV/STI prevention, the HIV/AIDS (Prevention and Control) Act, 2017, and promoting healthy lifestyles among youth. Dr. R. Sivaranjani, Principal (i/c), along with Dr. A. V. S. Santhosh Kumar, Dean/Admin, and Dr. B. Sujatha, Dean/Academics, appreciated the participants for their active involvement in creating awareness on crucial health issues.", "bold": False, "italic": False }
+                    ]
+                ],
+                "heroImage": "/assets/images/events/p17_img01.webp",
+                "galleryImages": [
+                    { "src": "/assets/images/events/p17_img02.webp", "caption": "Official poster: TNSACS State-Level Online Quiz Competition" }
+                ],
+                "numbers": [
+                    { "value": 140, "label": "More than 140 students participated" }
+                ],
+                "sourcePages": [16, 17]
+            },
+            {
+                "id": "anti-drug",
+                "spread": 12,
+                "leftPage": 24,
+                "rightPage": 25,
+                "section": "clubs",
+                "kicker": "ANTI-DRUG CLUB",
+                "title": "Anti-Drug Awareness and Health & Wellness Programme",
+                "date": "11 August 2026",
+                "dateBadge": { "day": "11", "month": "AUG", "year": "2026" },
+                "venue": "Dr. Kalam Auditorium",
+                "body": [
+                    [
+                        { "text": "The VCE Anti-Drug Club organized a Mass Anti-Drug Pledge and Anti-Drug Awareness and Health & Wellness Programme on 11 August 2026 at the Dr. Kalam Auditorium with the theme ", "bold": False, "italic": False },
+                        { "text": "“Empowering Youth for a Healthy Future.”", "bold": True, "italic": False },
+                        { "text": " As part of the initiative, an Online Drawing and Speech Competition was also conducted. The event was led by Dr. R. Sivaranjani, Principal (i/c), alongside Dr. A. V. S. Santhosh Kumar, Dean/Admin, and Dr. B. Sujatha, Dean/Academics. Nearly ", "bold": False, "italic": False },
+                        { "text": "250 students", "bold": True, "italic": False },
+                        { "text": " and staff members took the pledge against substance abuse and participated in the awareness session.", "bold": False, "italic": False }
+                    ]
+                ],
+                "heroImage": "/assets/images/events/p19_img01.webp",
+                "galleryImages": [
+                    { "src": "/assets/images/events/p19_img02.webp", "caption": "Students and staff taking the mass anti-drug pledge" }
+                ],
+                "numbers": [
+                    { "value": 250, "label": "Nearly 250 students & staff pledged" }
+                ],
+                "sourcePages": [18, 19]
+            },
+            {
+                "id": "edc-startup",
+                "spread": 13,
+                "leftPage": 26,
+                "rightPage": 27,
+                "section": "clubs",
+                "kicker": "ENTREPRENEURSHIP DEVELOPMENT CELL (EDC)",
+                "title": "Entrepreneurship, Innovation and Startup Awareness Programme",
+                "date": "13 August 2026",
+                "dateBadge": { "day": "13", "month": "AUG", "year": "2026" },
+                "venue": "Seminar Hall",
+                "body": [
+                    [
+                        { "text": "The Entrepreneurship Development Cell (EDC) organized an Entrepreneurship, Innovation and Startup Awareness Programme on 13 August 2026 for students from all departments. The resource person, Er. S. Vigneshwaran, Founder & CEO of TechStart Solutions, Madurai, guided students on ideation, business modeling and government startup funding opportunities. Dr. R. Sivaranjani, Principal (i/c), presided over the function, supported by Dr. A. V. S. Santhosh Kumar, Dean/Admin, and Dr. B. Sujatha, Dean/Academics. Students actively presented preliminary project ideas and received valuable expert feedback.", "bold": False, "italic": False }
+                    ]
+                ],
+                "heroImage": "/assets/images/events/p21_img01.webp",
+                "galleryImages": [
+                    { "src": "/assets/images/events/p21_img02.webp", "caption": "Er. S. Vigneshwaran discussing startup opportunities" },
+                    { "src": "/assets/images/events/p21_img03.webp", "caption": "Interactive student entrepreneurship session" },
+                    { "src": "/assets/images/events/p21_img04.webp", "caption": "Group discussion on innovation frameworks" }
+                ],
+                "numbers": [],
+                "sourcePages": [20, 21]
+            },
+            {
+                "id": "nss-independence",
+                "spread": 14,
+                "leftPage": 28,
+                "rightPage": 29,
+                "section": "clubs",
+                "kicker": "NATIONAL SERVICE SCHEME (NSS)",
+                "title": "78th Independence Day Celebration",
+                "date": "15 August 2026",
+                "dateBadge": { "day": "15", "month": "AUG", "year": "2026" },
+                "venue": "College Premises",
+                "body": [
+                    [
+                        { "text": "The National Service Scheme (NSS) organized the 78th Independence Day Celebration on 15 August 2026 with the participation of students from all departments. Dr. R. Sivaranjani, Professor/ECE and Principal (i/c), Vaigai College of Engineering, hoisted the National Flag and delivered the Independence Day address, inspiring students to contribute to nation-building and uphold ethical values. Dr. A. V. S. Santhosh Kumar, Dean/Admin, and Dr. B. Sujatha, Dean/Academics, graced the occasion. Patriotic songs and cultural performances marked the celebration.", "bold": False, "italic": False }
+                    ]
+                ],
+                "heroImage": "/assets/images/events/p23_img01.webp" if os.path.exists("public/assets/images/events/p23_img01.webp") else "/assets/images/events/p01_img02.webp",
+                "galleryImages": [],
+                "numbers": [],
+                "sourcePages": [22, 23]
+            },
+            {
+                "id": "anna-univ-rank",
+                "spread": 15,
+                "leftPage": 30,
+                "rightPage": 31,
+                "section": "clubs",
+                "kicker": "HONOURS & RECOGNITION",
+                "title": "ANNA UNIVERSITY RANK HOLDERS",
+                "date": "2021-2025 Batch",
+                "dateBadge": { "day": "2025", "month": "BATCH", "year": "ANNA UNIV" },
+                "venue": "Anna University, Chennai",
+                "body": [
+                    [
+                        { "text": "Vaigai CollegeofEngineering proudly representsour Anna University Rank Holders.\nMs. P. Snowfia, CSE department (2021-2025 batch) and Mr. S.A. Arunprasath, Mechanical department (2021-2025 Batch)", "bold": False, "italic": False }
+                    ]
+                ],
+                "students": [
+                    {
+                        "name": "Ms. P. Snowfia",
+                        "department": "CSE Department",
+                        "batch": "2021-2025 batch",
+                        "rank": "Anna University Rank Holder"
+                    },
+                    {
+                        "name": "Mr. S.A. Arunprasath",
+                        "department": "Mechanical Department",
+                        "batch": "2021-2025 Batch",
+                        "rank": "Anna University Rank Holder"
+                    }
+                ],
+                "heroImage": "/assets/images/events/p24_img01.webp",
+                "galleryImages": [],
+                "numbers": [],
+                "sourcePages": [24]
+            },
+            {
+                "id": "tpc-expert-talk",
+                "spread": 17,
+                "leftPage": 34,
+                "rightPage": 35,
+                "section": "placement",
+                "kicker": "TRAINING AND PLACEMENT CELL (TPC)",
+                "title": "Expert Talk on “Success Is a Skill: Habits of High Performers”",
+                "date": "8 July 2026",
+                "dateBadge": { "day": "08", "month": "JUL", "year": "2026" },
+                "venue": "Dr. Abdul Kalam Auditorium",
+                "body": [
+                    [
+                        { "text": "Vaigai College of Engineering organized an Expert Talk on ", "bold": False, "italic": False },
+                        { "text": "“Success Is a Skill: Habits of High Performers”", "bold": True, "italic": False },
+                        { "text": " on 8 July 2026 from 2:30 p.m. to 4:00 p.m. at the Dr. Abdul Kalam Auditorium. Dr. B. Sujatha, Dean/Academics, Vaigai College of Engineering, served as the resource person and delivered an inspiring session on cultivating high-performance habits, self-discipline and professional excellence. Dr. R. Sivaranjani, Principal (i/c), presided over the programme. Students actively participated and interacted during the session.", "bold": False, "italic": False }
+                    ]
+                ],
+                "heroImage": "/assets/images/events/p26_img01.webp",
+                "galleryImages": [
+                    { "src": "/assets/images/events/p27_img01.webp", "caption": "Expert Talk event poster" }
+                ],
+                "numbers": [],
+                "sourcePages": [25, 26, 27]
+            },
+            {
+                "id": "tpc-beasant",
+                "spread": 18,
+                "leftPage": 36,
+                "rightPage": 37,
+                "section": "placement",
+                "kicker": "TRAINING AND PLACEMENT CELL (TPC)",
+                "title": "On-Campus Recruitment Drive",
+                "date": "10 August 2026",
+                "dateBadge": { "day": "10", "month": "AUG", "year": "2026" },
+                "venue": "Placement Cell",
+                "body": [
+                    [
+                        { "text": "The Training and Placement Cell (TPC) organized an On-Campus Recruitment Drive on 10 August 2026 for final-year CSE and ECE students. Beasant Technologies conducted the recruitment process and assessed the candidates through technical and HR interview rounds. Dr. R. Sivaranjani, Principal (i/c), along with Dr. A. V. S. Santhosh Kumar, Dean/Admin, and Dr. B. Sujatha, Dean/Academics, supported and encouraged the students throughout the placement process.", "bold": False, "italic": False }
+                    ]
+                ],
+                "heroImage": "/assets/images/events/p28_img01.webp",
+                "galleryImages": [],
+                "numbers": [],
+                "sourcePages": [28]
+            },
+            {
+                "id": "tpc-jrip-selected",
+                "spread": 19,
+                "leftPage": 38,
+                "rightPage": 39,
+                "section": "placement",
+                "kicker": "PLACEMENT SUCCESS",
+                "title": "Selected students (JRIP)",
+                "date": "July – August 2026",
+                "dateBadge": { "day": "16", "month": "SELECTED", "year": "2026" },
+                "venue": "Corporate Selection",
+                "body": [
+                    [
+                        { "text": "Vaigai college of Engineering proudly announces that ", "bold": False, "italic": False },
+                        { "text": "16 students", "bold": True, "italic": False },
+                        { "text": " from the departments of CSE, ECE & EEE has been selected for JOB-READY INTERNSHIP & PLACEMENT PROGRAM (JRIP) by QSpiders, a leading software training organization, during the academic year 2026-2027.", "bold": False, "italic": False }
+                    ]
+                ],
+                "heroImage": "/assets/images/events/p29_img01.webp",
+                "galleryImages": [],
+                "numbers": [
+                    { "value": 16, "label": "16 students selected for JRIP" }
+                ],
+                "sourcePages": [29]
+            },
+            {
+                "id": "tpc-inovonz-pooled",
+                "spread": 20,
+                "leftPage": 40,
+                "rightPage": 41,
+                "section": "placement",
+                "kicker": "TRAINING AND PLACEMENT CELL (TPC)",
+                "title": "Pooled Campus Recruitment Drive",
+                "date": "18 August 2026",
+                "dateBadge": { "day": "18", "month": "AUG", "year": "2026" },
+                "venue": "College Campus",
+                "body": [
+                    [
+                        { "text": "A Pooled Campus Recruitment Drive was organized by the Training and Placement Cell (TPC) jointly with INOVONZ ENGINEERICS on 18 August 2026 for IV year EEE students. The drive provided students with an opportunity to showcase their technical skills and explore core industry placement opportunities. Dr. R. Sivaranjani, Principal (i/c), Dean/Admin, and Dean/Academics supported and congratulated the participants.", "bold": False, "italic": False }
+                    ]
+                ],
+                "heroImage": "/assets/images/events/p30_img01.webp",
+                "galleryImages": [
+                    { "src": "/assets/images/events/p31_img01.webp", "caption": "INOVONZ ENGINEERICS recruitment poster" }
+                ],
+                "numbers": [],
+                "sourcePages": [30, 31]
+            },
+            {
+                "id": "tpc-newrta-offcampus",
+                "spread": 21,
+                "leftPage": 42,
+                "rightPage": 43,
+                "section": "placement",
+                "kicker": "TRAINING AND PLACEMENT CELL (TPC)",
+                "title": "Off-Campus Recruitment Drive",
+                "date": "19 August 2026",
+                "dateBadge": { "day": "19", "month": "AUG", "year": "2026" },
+                "venue": "Newrta Solutions Pvt. Ltd.",
+                "body": [
+                    [
+                        { "text": "An Off-Campus Recruitment Drive was organized by the Training and Placement Cell (TPC) on 19 August 2026 for IV year CSE students. Newrta Solutions Pvt. Ltd. conducted the recruitment process and provided eligible students with an opportunity to pursue career opportunities in the software development domain. Dr. R. Sivaranjani, Principal (i/c), and the college leadership supported the initiative.", "bold": False, "italic": False }
+                    ]
+                ],
+                "heroImage": "/assets/images/events/p32_img01.webp",
+                "galleryImages": [
+                    { "src": "/assets/images/events/p34_img01.webp", "caption": "Newrta Solutions recruitment poster" }
+                ],
+                "numbers": [],
+                "sourcePages": [32, 34]
+            },
+            {
+                "id": "tpc-maadhesh-selected",
+                "spread": 22,
+                "leftPage": 44,
+                "rightPage": 45,
+                "section": "placement",
+                "kicker": "PLACEMENT SPOTLIGHT",
+                "title": "Selected student",
+                "date": "August 2026",
+                "dateBadge": { "day": "★", "month": "OFFER", "year": "2026" },
+                "venue": "NEWRTA SOLUTIONS",
+                "body": [
+                    [
+                        { "text": "Selected student\nMr. S. Maadhesh\nNEWRTA SOULTIONS Pvt Ltd as Software Developer.", "bold": False, "italic": False }
+                    ]
+                ],
+                "heroImage": "/assets/images/events/p33_img01.webp",
+                "galleryImages": [],
+                "numbers": [],
+                "sourcePages": [33]
+            },
+            {
+                "id": "tpc-tact-level1",
+                "spread": 23,
+                "leftPage": 46,
+                "rightPage": 47,
+                "section": "placement",
+                "kicker": "TRAINING AND PLACEMENT CELL (TPC)",
+                "title": "TACT – Level 1",
+                "date": "20 August 2026",
+                "dateBadge": { "day": "20", "month": "AUG", "year": "2026" },
+                "venue": "Placement Labs",
+                "body": [
+                    [
+                        { "text": "The Training and Placement Cell (TPC) organized TACT – Level 1 on 20 August 2026 for IV year students. Dr. R. Sivaranjani, Principal (i/c), along with the Heads of Departments, supported and guided the programme. The initiative focused on enhancing students’ aptitude, technical competencies and career readiness through structured training sessions.", "bold": False, "italic": False }
+                    ]
+                ],
+                "heroImage": "/assets/images/events/p35_img01.webp",
+                "galleryImages": [],
+                "numbers": [],
+                "sourcePages": [35]
+            }
+        ],
+        "tables": {
+            "facultyProgrammes": {
+                "title": "PROGRAMME ATTENDED BY FACULTY MEMBERS",
+                "subtitle": "FacultyDevelopmentProgrammes • Workshops • Seminars • Webinars",
+                "rows": [
+                    { "sl": "1", "name": "Dr.R.Sivaranjani", "dept": "ECE", "programme": "ANRF Sponsored Summer School on Advanced Computer Vision and Deep Learning Applications", "date": "03/08/2026 to 07/08/2026", "host": "Thiagarajar College of Engineering" },
+                    { "sl": "2", "name": "A. Badrul Mufsira", "dept": "CSE", "programme": "DEVOPS-FDP", "date": "27/7/2026 to 01/08/2026", "host": "TN Skills, Anna University, Madurai" },
+                    { "sl": "3", "name": "Mr. T Vijaya Raghavan", "dept": "CSE", "programme": "Piping Design Modelling and Detailing -FDP", "date": "27/7/2026 to 01/08/2026", "host": "TN Skill, AC Tech, Karaikudi" },
+                    { "sl": "4", "name": "Dr S Mohanasundaram", "dept": "MECH", "programme": "Next Generation Design using Autodesk Fusion assisted by artificial intelligence-FDP", "date": "03/08/2026 to 08.08.2026", "host": "Chaitanya Bharathi Institute of Technology, Hyderabad" },
+                    { "sl": "5", "name": "Dr.S. Mohanasundaram", "dept": "MECH", "programme": "Product conceptualization and prototyping-FDP", "date": "20/07/2026 to 01/08/2026", "host": "Anna University Regional Campus, Madurai" },
+                    { "sl": "6", "name": "Mr. R. Ravishankar", "dept": "MECH", "programme": "Surface moduling -FDP", "date": "27/02/2026 to 01/08/2026", "host": "Anna University Regional Campus, Madurai" },
+                    { "sl": "7", "name": "Ms. P. Kurshidha Begam", "dept": "ECE", "programme": "Innovative Research Methodologies for Academicians using AI Tools (Webinar)", "date": "10/7/2026", "host": "KLN College of Engineering" },
+                    { "sl": "8", "name": "Ms. P. Kurshidha Begam", "dept": "ECE", "programme": "AI powered IOT: Transforming the connected world (online workshop)", "date": "19/07/26", "host": "Reccsar Private Limited" },
+                    { "sl": "9", "name": "Ms. P. Kurshidha Begam", "dept": "ECE", "programme": "Effective Research Methodology, Scientific Paper writing Technologies, Research Ethics and publication best practices (Online FDP)", "date": "22/07/2026", "host": "Sri Indu institute of Engineering and technology" },
+                    { "sl": "10", "name": "Ms. P. Kurshidha Begam", "dept": "ECE", "programme": "Build Intelligent workflows with n8n (Online Workshop)", "date": "26/07/2026", "host": "Reccsar Private limited" },
+                    { "sl": "11", "name": "Ms. P. Kurshidha Begam", "dept": "ECE", "programme": "AI - Assisted UI/UX Design and prototype (Online workshop)", "date": "2/8/26", "host": "Reccsar Private limited" },
+                    { "sl": "12", "name": "Ms. P. Kurshidha Begam", "dept": "ECE", "programme": "Building AI- Powered Application using AWS (Online workshop)", "date": "15/08/26 to 16/08/26", "host": "Reccsar Private limited" },
+                    { "sl": "13", "name": "Mr.R.Kothalamuthu", "dept": "MECH", "programme": "NPTEL-advanced in additive Manufacturing", "date": "12week course", "host": "NPTEL _ IIT" },
+                    { "sl": "14", "name": "Ms. S. Sangeetha", "dept": "ECE", "programme": "ATAL OFFLINE FDP- NEXT GENERATION AI-DRIVEN ELECTRIC MOBILITY FOR SMART AND SUSTAINABLE ENERGY ECOSYSTEMS", "date": "3/08/2026 to 08/08/2026", "host": "Solamalai College of Engineering" },
+                    { "sl": "15", "name": "Ms. S. Sangeetha", "dept": "ECE", "programme": "Online FDP-Frontiers in Intelligent and Quantum Systems: Robotics, Transformers, and Agentic AI", "date": "22nd August – 31st August, 2026.", "host": "Indian Institute of Information Technology Kottayam (IIIT-Kottayam), Kottayam, Kerala, India" },
+                    { "sl": "16", "name": "Ms. S. Sangeetha", "dept": "ECE", "programme": "NPTEL COURSE- INTRODUCTION TO WIRELESS AND CELLULAR COMMUNICATION, 12 weeks", "date": "12 weeks", "host": "IIT CHENNAI" }
+                ]
+            },
+            "studentAchievements": {
+                "title": "STUDENT ACHIEVEMENT",
+                "subtitle": "Student participation and prizes",
+                "poster": "/assets/images/events/p38_img01.webp",
+                "rows": [
+                    { "sl": "1", "name": "B.B.Gokulnath", "year": "IV", "dept": "ECE", "event": "Vairamuthu Speech Contest", "date": "01.08.2026", "place": "Kalaingar Centenary Library", "prize": "I prize" },
+                    { "sl": "2", "name": "C. SANIYA", "year": "IV", "dept": "CSE", "event": "Vairamuthu Speech Contest", "date": "01.08.2026", "place": "Kalaingar Centenary Library", "prize": "II PRIZE" },
+                    { "sl": "3", "name": "MANIMEGALAI", "year": "II", "dept": "ECE", "event": "Vairamuthu Speech Contest", "date": "01.08.2026", "place": "Kalaingar Centenary Library", "prize": "III PRIZE" }
+                ]
+            },
+            "facultyPublications": {
+                "title": "FACULTY PUBLICATIONS",
+                "subtitle": "Published research papers and journal details",
+                "rows": [
+                    { "sl": "1", "name": "Dr R V SABARIRAJ", "dept": "AP/MECH", "title": "Harvesting of solar energy through hybrid nanofluid based parabolic concentrating solar collector – Experimental and theoretical study", "journal": "Next Materials" },
+                    { "sl": "2", "name": "Dr R V SABARIRAJ", "dept": "AP/MECH", "title": "Polymer with silicon dioxide coating on solar photovoltaic for enhancement of power output performance – Experimental study", "journal": "Next Energy" },
+                    { "sl": "3", "name": "Dr R V SABARIRAJ", "dept": "AP/MECH", "title": "Direct ink writing of continuous glass fiber reinforced UV curable composites for enhanced mechanical performance", "journal": "Discover Mechanical Engineering" },
+                    { "sl": "4", "name": "Dr R V SABARIRAJ", "dept": "AP/MECH", "title": "Cradle-to-grave life cycle assessment of titanium, basalt and natural fiber composite for aerospace structural applications", "journal": "Next Nanotechnology" },
+                    { "sl": "5", "name": "Mr. R RAVISHANKAR", "dept": "AP/MECH", "title": "A decision framework for selection highly sustainable packaging circular model in mass customized packing industry", "journal": "Applied Sciences" },
+                    { "sl": "6", "name": "Dr.S.Mohanasundaram", "dept": "AP/MECH", "title": "A multifunctional nanofiber composite for air filtration: thermal, electrochemical, and antibacterial characterisation", "journal": "The Canadian Journal of Metallurgy and Materials Science" },
+                    { "sl": "7", "name": "Mr. R RAVISHANKAR", "dept": "AP/MECH", "title": "Sustainable supplier selection for recyclable packaging industry circular model Z number based MCDM and FIS perspective", "journal": "International journal of Mathematical Engineering and Management Sciences" }
+                ]
+            },
+            "nptelOct2025": {
+                "title": "TOPPERS in the NPTEL Online Certification Exam conducted by IIT Madras during October 2025.",
+                "subtitle": "Very proud of you dear professors and students",
+                "rows": [
+                    { "sl": "1", "name": "MR.SHAKIL AHMED A", "role": "AP/ECE", "course": "Digital Circuits", "photo": "/assets/images/events/p41_img05.webp", "badges": ["Elite", "Gold", "TOP 5% Topper"], "score": "" },
+                    { "sl": "2", "name": "DR.ISAI VANI M", "role": "AP/ECE", "course": "System Design Through Verilog", "photo": "/assets/images/events/p41_img09.webp", "badges": ["Gold", "Elite", "TOP 5% Topper"], "score": "" },
+                    { "sl": "3", "name": "MR.CHANDRU P", "role": "AP/MECH", "course": "Technical Communication for Engineers", "photo": "/assets/images/events/p41_img13.webp", "badges": ["Silver", "TOP 5% Topper"], "score": "" },
+                    { "sl": "4", "name": "Mr.Aravindraj", "role": "HOD/EEE", "course": "Electronic Systems Design: Hands-on Circuits and CAD", "photo": "/assets/images/events/p42_img11.webp", "badges": ["Silver", "TOP 5% Topper"], "score": "" },
+                    { "sl": "5", "name": "MR.KOTHALAMUTHU R", "role": "AP/MECH", "course": "PCB with Software Manufacturing Systems Technology", "photo": "/assets/images/events/p42_img07.webp", "badges": ["Successfully Completed"], "score": "" },
+                    { "sl": "6", "name": "Mr. ARUNACHALESHWARAN J", "role": "III Year ECE", "course": "Digital Circuits", "photo": "/assets/images/events/p42_img08.webp", "badges": ["Successfully Completed"], "score": "" },
+                    { "sl": "7", "name": "JEYA KUMAR L.K", "role": "III Year ECE", "course": "Digital Circuits", "photo": "/assets/images/events/p42_img10.webp", "badges": ["Successfully Completed"], "score": "" }
+                ]
+            },
+            "nptelApril2026": {
+                "title": "TOPPERS in the NPTEL Online Certification Exam conducted by IIT Madras during APRIL 2026",
+                "subtitle": "Very proud of you dear professors and students",
+                "rows": [
+                    { "sl": "1", "name": "Dr.R.Sivaranjani", "role": "PROF/ECE", "course": "Assessment of Student Performance", "photo": "/assets/images/events/p43_img06.webp", "badges": ["Gold", "TOP 5% Topper"], "score": "92%" },
+                    { "sl": "2", "name": "Ms.R.ASWINI", "role": "AP/ENGLISH", "course": "Methodology of Educational Research", "photo": "/assets/images/events/p43_img09.webp", "badges": ["TOP 5% Topper"], "score": "" },
+                    { "sl": "3", "name": "Ms.E SELVAMAHALAKSHMI", "role": "AP/ECE", "course": "CMOS Digital VLSI Design", "photo": "/assets/images/events/p43_img11.webp", "badges": ["Successfully Completed"], "score": "" },
+                    { "sl": "4", "name": "Ms. GOWRI ANU KRISHNA", "role": "IV YEAR MECH", "course": "PRODUCT DESIGN AND DEVELOPMENT", "photo": "/assets/images/events/p43_img12.webp", "badges": ["TOP 5% Topper"], "score": "" },
+                    { "sl": "5", "name": "Ms. GOWRI ANU KRISHNA", "role": "IV YEAR MECH", "course": "PRODUCT DESIGN USING VALUE ENGINEERING", "photo": "/assets/images/events/p44_img05.webp", "badges": ["TOP 5% Topper"], "score": "" },
+                    { "sl": "6", "name": "Ms. S.SANGEETHA", "role": "AP/ECE", "course": "Microprocessors and Microcontrollers", "photo": "/assets/images/events/p44_img07.webp", "badges": ["TOP 5% Topper"], "score": "" },
+                    { "sl": "7", "name": "Mr.T VIJAYA RAGHAVAN", "role": "AP/MECH", "course": "Air Pollution and Control", "photo": "/assets/images/events/p44_img09.webp", "badges": ["Successfully Completed"], "score": "" },
+                    { "sl": "8", "name": "Ms,A BADRUL MUFSIRA", "role": "AP/CSE", "course": "Data Mining for Decision Making", "photo": "/assets/images/events/p44_img12.webp", "badges": ["Silver", "TOP 5% Topper"], "score": "" }
+                ]
+            }
+        },
+        "closing": {
+            "title": "Vaigai — Our Mother",
+            "whisper": "Thank you, Amma. We will carry you wherever we go.",
+            "message": "Thank you for reading the inaugural issue of Vaigai's Ikigai. We look forward to sharing our journey of purpose and possibility with you in the editions to come.",
+            "contact": {
+                "institution": "Vaigai College of Engineering",
+                "trust": "Approved by AICTE, New Delhi & Affiliated to Anna University, Chennai",
+                "address": "Vinayagapuram, Therkutheru, Madurai - 625122",
+                "website": "www.vaigai.org",
+                "email": "vaigaioffice@gmail.com"
+            },
+            "image": "/assets/images/amma.webp"
+        },
+        "backCover": {
+            "title": "VAIGAI'S IKIGAI",
+            "tagline": "Where Purpose Meets Possibility.",
+            "volume": "VOL. 01 • ISSUE 01 • JULY – AUGUST 2026",
+            "college": "Vaigai College of Engineering",
+            "address": "Vinayagapuram, Therkutheru, Madurai - 625122, Tamil Nadu, India",
+            "website": "www.vaigai.org",
+            "email": "vaigaioffice@gmail.com",
+            "quote": "Inspiring young minds to become skilled, confident, and responsible contributors to society."
+        }
+    }
+
+    output_path = "src/data/content.json"
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(content, f, indent=2, ensure_ascii=False)
+    print(f"Successfully generated {output_path} with {len(content['events'])} events and all tables!")
+
+if __name__ == "__main__":
+    main()
