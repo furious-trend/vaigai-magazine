@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ChevronLeft,
   ChevronRight,
@@ -10,7 +10,8 @@ import {
   Heart,
   Download,
   Share2,
-  ZoomIn
+  MoreHorizontal,
+  X
 } from 'lucide-react';
 
 const BottomToolbar = ({
@@ -24,12 +25,20 @@ const BottomToolbar = ({
   volume,
   onChangeVolume,
   onOpenContents,
-  onOpenAmmaLetter,
-  onToggleZoom,
-  isZoomed
+  onOpenAmmaLetter
 }) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showShareToast, setShowShareToast] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 640);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
@@ -53,212 +62,345 @@ const BottomToolbar = ({
       setShowShareToast(true);
       setTimeout(() => setShowShareToast(false), 2000);
     }
+    setShowMobileMenu(false);
   };
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        bottom: '12px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        zIndex: 100,
-        background: 'rgba(20, 20, 32, 0.88)',
-        backdropFilter: 'blur(12px)',
-        border: '1px solid rgba(201, 162, 75, 0.35)',
-        borderRadius: '40px',
-        padding: '6px 16px',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '12px',
-        boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-        color: '#FAF4E8',
-        maxWidth: '96vw',
-        overflowX: 'auto'
-      }}
-    >
-      {/* Table of Contents Drawer Button */}
-      <button
-        onClick={onOpenContents}
-        style={{ background: 'none', border: 'none', color: '#FAF4E8', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', padding: '6px 10px', borderRadius: '20px' }}
-        title="Contents Drawer"
-        onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.1)')}
-        onMouseLeave={(e) => (e.currentTarget.style.background = 'none')}
-      >
-        <BookOpen size={18} color="var(--gold)" />
-        <span style={{ fontFamily: 'var(--font-ui)', fontSize: '0.85rem', fontWeight: 600, display: 'none', smDisplay: 'inline' }}>
-          Contents
-        </span>
-      </button>
-
-      <div style={{ width: '1px', height: '18px', background: 'rgba(255,255,255,0.15)' }} />
-
-      {/* Prev Page */}
-      <button
-        onClick={onPrev}
-        disabled={currentPage <= 0}
+    <>
+      <div
         style={{
-          background: 'none',
-          border: 'none',
-          color: currentPage <= 0 ? 'rgba(255,255,255,0.3)' : '#FAF4E8',
-          cursor: currentPage <= 0 ? 'default' : 'pointer',
-          padding: '6px',
-          borderRadius: '50%'
+          position: 'fixed',
+          bottom: '10px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          zIndex: 100,
+          background: 'rgba(16, 20, 36, 0.92)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          border: '1.5px solid rgba(201, 162, 75, 0.45)',
+          borderRadius: '40px',
+          padding: isMobile ? '4px 10px' : '6px 16px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: isMobile ? '6px' : '10px',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 15px rgba(201, 162, 75, 0.2)',
+          color: '#FAF4E8',
+          maxWidth: '96vw',
+          userSelect: 'none'
         }}
-        title="Previous Page (←)"
       >
-        <ChevronLeft size={20} />
-      </button>
-
-      {/* Page Slider & Counter */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <input
-          type="range"
-          min="0"
-          max={totalPages - 1}
-          value={currentPage}
-          onChange={(e) => onSliderChange(parseInt(e.target.value, 10))}
+        {/* Table of Contents Drawer Button */}
+        <button
+          onClick={onOpenContents}
           style={{
-            width: 'clamp(60px, 12vw, 120px)',
-            accentColor: 'var(--vaigai-red)',
-            cursor: 'pointer'
+            background: 'none',
+            border: 'none',
+            color: '#FAF4E8',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '5px',
+            padding: '8px 10px',
+            borderRadius: '20px',
+            transition: 'background 0.2s ease'
           }}
-        />
-        <span style={{ fontFamily: 'var(--font-ui)', fontSize: '0.85rem', fontWeight: 600, color: '#FAF4E8', minWidth: '80px', textAlign: 'center' }}>
-          Page {currentPage + 1} of {totalPages}
-        </span>
-      </div>
+          title="Contents Drawer"
+        >
+          <BookOpen size={isMobile ? 18 : 19} color="var(--gold)" />
+          {!isMobile && (
+            <span style={{ fontFamily: 'var(--font-ui)', fontSize: '0.85rem', fontWeight: 600 }}>
+              Contents
+            </span>
+          )}
+        </button>
 
-      {/* Next Page */}
-      <button
-        onClick={onNext}
-        disabled={currentPage >= totalPages - 1}
-        style={{
-          background: 'none',
-          border: 'none',
-          color: currentPage >= totalPages - 1 ? 'rgba(255,255,255,0.3)' : '#FAF4E8',
-          cursor: currentPage >= totalPages - 1 ? 'default' : 'pointer',
-          padding: '6px',
-          borderRadius: '50%'
-        }}
-        title="Next Page (→)"
-      >
-        <ChevronRight size={20} />
-      </button>
+        <div style={{ width: '1px', height: '16px', background: 'rgba(255,255,255,0.18)' }} />
 
-      <div style={{ width: '1px', height: '18px', background: 'rgba(255,255,255,0.15)' }} />
+        {/* Prev Page Button */}
+        <button
+          onClick={onPrev}
+          disabled={currentPage <= 0}
+          style={{
+            background: 'none',
+            border: 'none',
+            color: currentPage <= 0 ? 'rgba(255,255,255,0.25)' : '#FAF4E8',
+            cursor: currentPage <= 0 ? 'default' : 'pointer',
+            padding: '8px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: '50%'
+          }}
+          title="Previous Page (←)"
+        >
+          <ChevronLeft size={isMobile ? 20 : 22} />
+        </button>
 
-      {/* Audio Toggle & Volume Slider */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+        {/* Page Counter & Range Slider (Slider on Desktop, Compact text on Mobile) */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {!isMobile && (
+            <input
+              type="range"
+              min="0"
+              max={totalPages - 1}
+              value={currentPage}
+              onChange={(e) => onSliderChange(parseInt(e.target.value, 10))}
+              style={{
+                width: 'clamp(60px, 12vw, 110px)',
+                accentColor: 'var(--vaigai-red)',
+                cursor: 'pointer'
+              }}
+            />
+          )}
+          <span
+            style={{
+              fontFamily: 'var(--font-ui)',
+              fontSize: isMobile ? '0.82rem' : '0.88rem',
+              fontWeight: 700,
+              color: '#FAF4E8',
+              minWidth: isMobile ? '65px' : '85px',
+              textAlign: 'center',
+              letterSpacing: '0.02em'
+            }}
+          >
+            {currentPage + 1} / {totalPages}
+          </span>
+        </div>
+
+        {/* Next Page Button */}
+        <button
+          onClick={onNext}
+          disabled={currentPage >= totalPages - 1}
+          style={{
+            background: 'none',
+            border: 'none',
+            color: currentPage >= totalPages - 1 ? 'rgba(255,255,255,0.25)' : '#FAF4E8',
+            cursor: currentPage >= totalPages - 1 ? 'default' : 'pointer',
+            padding: '8px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: '50%'
+          }}
+          title="Next Page (→)"
+        >
+          <ChevronRight size={isMobile ? 20 : 22} />
+        </button>
+
+        <div style={{ width: '1px', height: '16px', background: 'rgba(255,255,255,0.18)' }} />
+
+        {/* Audio Mute/Unmute */}
         <button
           onClick={onToggleMute}
-          style={{ background: 'none', border: 'none', color: isMuted ? 'var(--vaigai-red)' : '#FAF4E8', cursor: 'pointer', padding: '6px' }}
+          style={{
+            background: 'none',
+            border: 'none',
+            color: isMuted ? 'var(--vaigai-red)' : '#FAF4E8',
+            cursor: 'pointer',
+            padding: '8px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
           title={isMuted ? 'Unmute (M)' : 'Mute (M)'}
         >
-          {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} color="var(--gold)" />}
+          {isMuted ? <VolumeX size={18} color="var(--vaigai-red)" /> : <Volume2 size={18} color="var(--gold)" />}
         </button>
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.05"
-          value={isMuted ? 0 : volume}
-          onChange={(e) => onChangeVolume(parseFloat(e.target.value))}
+
+        {/* Tribute Heart Letter Button */}
+        <button
+          onClick={onOpenAmmaLetter}
           style={{
-            width: '50px',
-            accentColor: 'var(--gold)',
+            background: 'linear-gradient(135deg, rgba(215, 55, 43, 0.4) 0%, rgba(140, 25, 20, 0.5) 100%)',
+            border: '1.5px solid var(--vaigai-red)',
+            color: '#FFFFFF',
+            borderRadius: '24px',
+            padding: isMobile ? '7px 11px' : '6px 14px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
             cursor: 'pointer',
-            display: 'none',
-            mdDisplay: 'inline-block'
+            boxShadow: '0 2px 10px rgba(215, 55, 43, 0.4)'
           }}
-          title="Volume"
-        />
+          title="Experience The Heart Letter (Page 35)"
+        >
+          <Heart size={16} fill="var(--vaigai-red)" color="white" />
+          {!isMobile && (
+            <span style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', fontWeight: 700, color: '#FAF4E8' }}>
+              Heart Letter
+            </span>
+          )}
+        </button>
+
+        {/* Desktop-only Direct Action Buttons */}
+        {!isMobile ? (
+          <>
+            <div style={{ width: '1px', height: '16px', background: 'rgba(255,255,255,0.18)' }} />
+            <a
+              href="/newsletter.pdf"
+              download="Vaigais-Ikigai-Newsletter.pdf"
+              style={{ background: 'none', border: 'none', color: '#FAF4E8', padding: '8px', display: 'flex', alignItems: 'center', textDecoration: 'none' }}
+              title="Download Original PDF"
+            >
+              <Download size={18} />
+            </a>
+            <button
+              onClick={handleShare}
+              style={{ background: 'none', border: 'none', color: '#FAF4E8', cursor: 'pointer', padding: '8px', display: 'flex', alignItems: 'center' }}
+              title="Share Link"
+            >
+              <Share2 size={18} />
+            </button>
+            <button
+              onClick={toggleFullscreen}
+              style={{ background: 'none', border: 'none', color: '#FAF4E8', cursor: 'pointer', padding: '8px', display: 'flex', alignItems: 'center' }}
+              title={isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
+            >
+              {isFullscreen ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
+            </button>
+          </>
+        ) : (
+          /* Mobile More (...) Menu Button */
+          <button
+            onClick={() => setShowMobileMenu((prev) => !prev)}
+            style={{
+              background: showMobileMenu ? 'rgba(255,255,255,0.2)' : 'none',
+              border: 'none',
+              color: '#FAF4E8',
+              cursor: 'pointer',
+              padding: '8px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: '50%'
+            }}
+            title="More Options"
+          >
+            <MoreHorizontal size={18} />
+          </button>
+        )}
+
+        {/* Share Toast Notification */}
+        {showShareToast && (
+          <div
+            style={{
+              position: 'absolute',
+              top: '-42px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              background: 'var(--navy)',
+              color: 'white',
+              padding: '5px 16px',
+              borderRadius: '16px',
+              fontFamily: 'var(--font-ui)',
+              fontSize: '0.82rem',
+              fontWeight: 700,
+              whiteSpace: 'nowrap',
+              boxShadow: '0 4px 14px rgba(0,0,0,0.4)',
+              border: '1px solid var(--gold)'
+            }}
+          >
+            Link copied to clipboard!
+          </div>
+        )}
       </div>
 
-      <div style={{ width: '1px', height: '18px', background: 'rgba(255,255,255,0.15)' }} />
-
-      {/* Tribute Letter Button */}
-      <button
-        onClick={onOpenAmmaLetter}
-        style={{
-          background: 'rgba(215, 55, 43, 0.25)',
-          border: '1px solid rgba(215, 55, 43, 0.6)',
-          color: 'var(--vaigai-red)',
-          borderRadius: '20px',
-          padding: '6px 12px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '6px',
-          cursor: 'pointer'
-        }}
-        title="Experience The Heart Letter (Page 35)"
-      >
-        <Heart size={16} fill="var(--vaigai-red)" />
-        <span style={{ fontFamily: 'var(--font-ui)', fontSize: '0.8rem', fontWeight: 600, color: '#FAF4E8' }}>
-          Heart Letter
-        </span>
-      </button>
-
-      {/* Download PDF */}
-      <a
-        href="/newsletter.pdf"
-        download="Vaigais-Ikigai-Newsletter.pdf"
-        style={{
-          background: 'none',
-          border: 'none',
-          color: '#FAF4E8',
-          padding: '6px',
-          display: 'flex',
-          alignItems: 'center',
-          textDecoration: 'none'
-        }}
-        title="Download Original PDF"
-      >
-        <Download size={18} />
-      </a>
-
-      {/* Share Button */}
-      <button
-        onClick={handleShare}
-        style={{ background: 'none', border: 'none', color: '#FAF4E8', cursor: 'pointer', padding: '6px' }}
-        title="Share Link"
-      >
-        <Share2 size={18} />
-      </button>
-
-      {/* Fullscreen Button */}
-      <button
-        onClick={toggleFullscreen}
-        style={{ background: 'none', border: 'none', color: '#FAF4E8', cursor: 'pointer', padding: '6px' }}
-        title={isFullscreen ? 'Exit Fullscreen (F)' : 'Fullscreen (F)'}
-      >
-        {isFullscreen ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
-      </button>
-
-      {/* Share Toast Notification */}
-      {showShareToast && (
+      {/* Mobile Popover Menu */}
+      {isMobile && showMobileMenu && (
         <div
           style={{
-            position: 'absolute',
-            top: '-42px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            background: 'var(--navy)',
-            color: 'white',
-            padding: '4px 14px',
+            position: 'fixed',
+            bottom: '65px',
+            right: '16px',
+            zIndex: 110,
+            background: 'rgba(16, 20, 36, 0.96)',
+            backdropFilter: 'blur(16px)',
+            border: '1.5px solid rgba(201, 162, 75, 0.5)',
             borderRadius: '16px',
-            fontFamily: 'var(--font-ui)',
-            fontSize: '0.8rem',
-            whiteSpace: 'nowrap',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
+            padding: '10px 14px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+            boxShadow: '0 12px 36px rgba(0,0,0,0.6)',
+            color: '#FAF4E8',
+            minWidth: '180px'
           }}
         >
-          Link copied to clipboard!
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.15)', paddingBottom: '6px' }}>
+            <span style={{ fontFamily: 'var(--font-ui)', fontSize: '0.8rem', fontWeight: 700, color: 'var(--gold)', textTransform: 'uppercase' }}>
+              Options
+            </span>
+            <button
+              onClick={() => setShowMobileMenu(false)}
+              style={{ background: 'none', border: 'none', color: '#FAF4E8', cursor: 'pointer', padding: '2px' }}
+            >
+              <X size={16} />
+            </button>
+          </div>
+
+          <a
+            href="/newsletter.pdf"
+            download="Vaigais-Ikigai-Newsletter.pdf"
+            onClick={() => setShowMobileMenu(false)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              color: '#FAF4E8',
+              textDecoration: 'none',
+              fontFamily: 'var(--font-ui)',
+              fontSize: '0.85rem',
+              padding: '6px 4px'
+            }}
+          >
+            <Download size={16} color="var(--gold)" />
+            <span>Download PDF</span>
+          </a>
+
+          <button
+            onClick={handleShare}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              background: 'none',
+              border: 'none',
+              color: '#FAF4E8',
+              cursor: 'pointer',
+              fontFamily: 'var(--font-ui)',
+              fontSize: '0.85rem',
+              padding: '6px 4px'
+            }}
+          >
+            <Share2 size={16} color="var(--gold)" />
+            <span>Share Link</span>
+          </button>
+
+          <button
+            onClick={() => {
+              toggleFullscreen();
+              setShowMobileMenu(false);
+            }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              background: 'none',
+              border: 'none',
+              color: '#FAF4E8',
+              cursor: 'pointer',
+              fontFamily: 'var(--font-ui)',
+              fontSize: '0.85rem',
+              padding: '6px 4px'
+            }}
+          >
+            {isFullscreen ? <Minimize2 size={16} color="var(--gold)" /> : <Maximize2 size={16} color="var(--gold)" />}
+            <span>{isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}</span>
+          </button>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
 export default BottomToolbar;
-

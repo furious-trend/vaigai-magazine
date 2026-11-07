@@ -27,27 +27,29 @@ const PageShell = forwardRef(function PageShell(
       {showHeader && (
         <header
           style={{
-            height: "5cqw",
+            height: "clamp(24px, 5cqw, 34px)",
+            minHeight: "24px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            padding: "0 4cqw",
+            padding: "0 clamp(10px, 3cqw, 18px)",
             borderBottom: "1px solid rgba(27, 27, 47, 0.08)",
             color: "var(--ink-muted)",
             fontFamily: "var(--font-ui)",
-            fontSize: "1.4cqw",
+            fontSize: "clamp(10px, 1.6cqw, 13px)",
             textTransform: "uppercase",
-            letterSpacing: "0.08em"
+            letterSpacing: "0.08em",
+            flexShrink: 0
           }}
         >
           {isLeft ? (
             <>
-              <div style={{ display: "flex", alignItems: "center", gap: "1cqw" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                 <img
                   src="/assets/images/logo.webp"
                   onError={(e) => { e.target.src = "/assets/images/logo.png"; }}
                   alt="Vaigai Logo"
-                  style={{ height: "3cqw", width: "auto" }}
+                  style={{ height: "clamp(12px, 2.8cqw, 18px)", width: "auto" }}
                 />
                 <span style={{ fontWeight: 600, color: "var(--navy)" }}>Vaigai's Ikigai</span>
               </div>
@@ -56,13 +58,13 @@ const PageShell = forwardRef(function PageShell(
           ) : (
             <>
               <span>{sectionName}</span>
-              <div style={{ display: "flex", alignItems: "center", gap: "1cqw" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                 <span>July – August 2026</span>
                 <img
                   src="/assets/images/logo.webp"
                   onError={(e) => { e.target.src = "/assets/images/logo.png"; }}
                   alt="Vaigai Logo"
-                  style={{ height: "3cqw", width: "auto" }}
+                  style={{ height: "clamp(12px, 2.8cqw, 18px)", width: "auto" }}
                 />
               </div>
             </>
@@ -75,11 +77,13 @@ const PageShell = forwardRef(function PageShell(
         style={{
           flex: 1,
           height: "100%",
-          padding: showHeader || showFooter ? "2cqw 4cqw" : "0",
+          padding: showHeader || showFooter ? "clamp(4px, 1.2cqw, 12px) clamp(8px, 2.5cqw, 18px)" : "0",
           display: "flex",
           flexDirection: "column",
           position: "relative",
-          overflow: "hidden"
+          overflowY: "auto",
+          overflowX: "hidden",
+          WebkitOverflowScrolling: "touch"
         }}
       >
         {children}
@@ -89,15 +93,18 @@ const PageShell = forwardRef(function PageShell(
       {showFooter && (
         <footer
           style={{
-            height: "4cqw",
+            height: "clamp(18px, 3.8cqw, 26px)",
+            minHeight: "18px",
             display: "flex",
             alignItems: "center",
             justifyContent: isLeft ? "flex-start" : "flex-end",
-            padding: "0 4cqw",
+            padding: "0 clamp(10px, 3cqw, 18px)",
             fontFamily: "var(--font-display)",
-            fontSize: "1.6cqw",
+            fontSize: "clamp(11px, 1.8cqw, 14px)",
+            fontWeight: 700,
             color: "var(--ink-muted)",
-            borderTop: "1px solid rgba(27, 27, 47, 0.06)"
+            borderTop: "1px solid rgba(27, 27, 47, 0.06)",
+            flexShrink: 0
           }}
         >
           <span>{pageNumber}</span>

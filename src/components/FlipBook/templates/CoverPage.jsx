@@ -123,25 +123,24 @@ const CoverPage = forwardRef(function CoverPage({ meta, onOpen }, ref) {
             style={{
               position: "relative",
               zIndex: 2,
-              background: "linear-gradient(180deg, transparent 0%, rgba(16, 27, 51, 0.75) 35%, rgba(10, 16, 32, 0.98) 100%)",
-              padding: "clamp(16px, 2.8cqw, 24px)",
+              background: "linear-gradient(180deg, transparent 0%, rgba(16, 27, 51, 0.75) 30%, rgba(10, 16, 32, 0.98) 100%)",
+              padding: "clamp(12px, 2.2cqw, 20px)",
               color: "white",
               display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: "16px"
+              flexDirection: "column",
+              gap: "clamp(8px, 1.4cqw, 14px)"
             }}
           >
             <div>
-              <div style={{ fontFamily: "var(--font-ui)", fontSize: "clamp(11px, 1.8cqw, 13px)", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--gold)", fontWeight: 700 }}>
+              <div style={{ fontFamily: "var(--font-ui)", fontSize: "clamp(10px, 1.6cqw, 12.5px)", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--gold)", fontWeight: 700 }}>
                 Official Inaugural Publication
               </div>
-              <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(16px, 2.8cqw, 22px)", fontWeight: 800, marginTop: "2px" }}>
+              <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(14px, 2.4cqw, 20px)", fontWeight: 800, marginTop: "2px" }}>
                 Vaigai College of Engineering • Madurai
               </div>
             </div>
 
-            {/* Click to Open / Continue Button */}
+            {/* Click to Open / Continue Button - Responsive & Centered */}
             <button
               onClick={onOpen}
               style={{
@@ -149,32 +148,33 @@ const CoverPage = forwardRef(function CoverPage({ meta, onOpen }, ref) {
                 border: "2px solid #FFD700",
                 color: "white",
                 borderRadius: "32px",
-                padding: "clamp(10px, 1.6cqw, 14px) clamp(18px, 2.6cqw, 26px)",
+                padding: "clamp(8px, 1.4cqw, 12px) clamp(16px, 2.2cqw, 24px)",
                 display: "inline-flex",
                 alignItems: "center",
-                gap: "10px",
+                justifyContent: "center",
+                gap: "8px",
                 cursor: "pointer",
-                boxShadow: "0 6px 22px rgba(215, 55, 43, 0.55), 0 0 18px rgba(255, 215, 0, 0.35)",
+                width: "100%",
+                boxShadow: "0 6px 20px rgba(215, 55, 43, 0.55), 0 0 16px rgba(255, 215, 0, 0.35)",
                 transition: "all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)",
                 fontFamily: "var(--font-ui)",
-                fontSize: "clamp(13px, 2cqw, 16px)",
+                fontSize: "clamp(12px, 1.8cqw, 15px)",
                 fontWeight: 800,
                 letterSpacing: "0.03em",
-                flexShrink: 0,
                 animation: "openPulse 2.2s infinite"
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "scale(1.06) translateY(-2px)";
-                e.currentTarget.style.boxShadow = "0 12px 30px rgba(215, 55, 43, 0.75), 0 0 28px rgba(255, 215, 0, 0.6)";
+                e.currentTarget.style.transform = "scale(1.03) translateY(-1px)";
+                e.currentTarget.style.boxShadow = "0 10px 26px rgba(215, 55, 43, 0.75), 0 0 24px rgba(255, 215, 0, 0.6)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = "scale(1) translateY(0)";
-                e.currentTarget.style.boxShadow = "0 6px 22px rgba(215, 55, 43, 0.55), 0 0 18px rgba(255, 215, 0, 0.35)";
+                e.currentTarget.style.boxShadow = "0 6px 20px rgba(215, 55, 43, 0.55), 0 0 16px rgba(255, 215, 0, 0.35)";
               }}
             >
-              <BookOpen size={18} color="#FFD700" />
+              <BookOpen size={16} color="#FFD700" />
               <span>Click to Continue & Open</span>
-              <ArrowRight size={18} color="#FFD700" />
+              <ArrowRight size={16} color="#FFD700" />
             </button>
           </div>
         </div>
@@ -193,15 +193,17 @@ const CoverPage = forwardRef(function CoverPage({ meta, onOpen }, ref) {
         {/* Cover Footer Strip */}
         <div
           style={{
-            marginTop: "clamp(10px, 1.8cqw, 16px)",
+            marginTop: "clamp(8px, 1.2cqw, 14px)",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
+            flexWrap: "wrap",
+            gap: "4px",
             fontFamily: "var(--font-ui)",
-            fontSize: "clamp(11px, 1.8cqw, 13px)",
+            fontSize: "clamp(9.5px, 1.4cqw, 12px)",
             color: "var(--ink-muted)",
             borderTop: "1px solid rgba(27, 27, 47, 0.15)",
-            paddingTop: "clamp(8px, 1.2cqw, 12px)"
+            paddingTop: "clamp(6px, 1cqw, 10px)"
           }}
         >
           <span>{meta?.address || "Vinayagapuram, Therkutheru, Madurai - 625122"}</span>

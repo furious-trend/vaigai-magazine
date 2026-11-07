@@ -19,18 +19,28 @@ const EditorialPage = forwardRef(function EditorialPage({ editorial, pageNumber 
       isLeft={true}
       sectionName="EDITORIAL DESK"
     >
-      <div style={{ padding: "clamp(16px, 2.5cqw, 28px) clamp(14px, 2cqw, 24px)", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+      <div
+        style={{
+          padding: "clamp(10px, 1.8cqw, 24px) clamp(10px, 1.6cqw, 20px)",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          overflowY: "auto",
+          WebkitOverflowScrolling: "touch"
+        }}
+      >
         {/* Header Block */}
         <div>
           <div
             style={{
               fontFamily: "var(--font-ui)",
-              fontSize: "clamp(11px, 1.9cqw, 14px)",
+              fontSize: "clamp(10.5px, 1.7cqw, 13px)",
               fontWeight: 700,
-              letterSpacing: "0.18em",
+              letterSpacing: "0.16em",
               textTransform: "uppercase",
               color: "var(--vaigai-red)",
-              marginBottom: "0.5cqw"
+              marginBottom: "2px"
             }}
           >
             From the Editorial Desk
@@ -39,12 +49,12 @@ const EditorialPage = forwardRef(function EditorialPage({ editorial, pageNumber 
           <h2
             style={{
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(26px, 5.2cqw, 38px)",
+              fontSize: "clamp(22px, 4.4cqw, 34px)",
               fontWeight: 800,
               color: "var(--navy)",
               lineHeight: 1.1,
               letterSpacing: "-0.01em",
-              marginBottom: "1.5cqw"
+              marginBottom: "6px"
             }}
           >
             {editorial?.title || "Editorial Team"}
@@ -55,16 +65,16 @@ const EditorialPage = forwardRef(function EditorialPage({ editorial, pageNumber 
             style={{
               fontFamily: "var(--font-display)",
               fontStyle: "italic",
-              fontSize: "clamp(15px, 2.6cqw, 20px)",
-              lineHeight: 1.55,
+              fontSize: "clamp(13px, 2.2cqw, 18px)",
+              lineHeight: 1.45,
               color: "var(--navy)",
-              borderLeft: "4px solid var(--gold)",
-              paddingLeft: "clamp(12px, 2cqw, 18px)",
-              margin: "1cqw 0 2cqw",
+              borderLeft: "3.5px solid var(--gold)",
+              paddingLeft: "clamp(10px, 1.6cqw, 16px)",
+              margin: "4px 0 8px",
               background: "rgba(201, 162, 75, 0.08)",
-              paddingTop: "clamp(10px, 1.5cqw, 14px)",
-              paddingBottom: "clamp(10px, 1.5cqw, 14px)",
-              borderRadius: "0 8px 8px 0"
+              paddingTop: "clamp(6px, 1cqw, 10px)",
+              paddingBottom: "clamp(6px, 1cqw, 10px)",
+              borderRadius: "0 6px 6px 0"
             }}
           >
             "Words become memories, and memories shape legacy. Here is the spirit, scholarship, and service of Vaigai College of Engineering."
@@ -72,27 +82,27 @@ const EditorialPage = forwardRef(function EditorialPage({ editorial, pageNumber 
         </div>
 
         {/* Editorial Members List with Initials Badges */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "clamp(12px, 1.8cqw, 20px)", margin: "auto 0" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "clamp(6px, 1.1cqw, 14px)", margin: "4px 0" }}>
           {editorial?.members?.map((member, idx) => (
             <div
               key={idx}
               style={{
                 background: "white",
-                padding: "clamp(14px, 2.2cqw, 22px) clamp(16px, 2.5cqw, 26px)",
-                borderRadius: "10px",
+                padding: "clamp(8px, 1.3cqw, 16px) clamp(10px, 1.6cqw, 20px)",
+                borderRadius: "8px",
                 border: "1.5px solid #E8DFD0",
-                boxShadow: "0 4px 14px rgba(20, 33, 61, 0.05)",
+                boxShadow: "0 3px 10px rgba(20, 33, 61, 0.04)",
                 display: "flex",
                 alignItems: "center",
-                gap: "clamp(14px, 2cqw, 20px)",
+                gap: "clamp(10px, 1.5cqw, 16px)",
                 transition: "all 0.25s ease"
               }}
             >
               {/* Initials Badge */}
               <div
                 style={{
-                  width: "clamp(42px, 6.5cqw, 54px)",
-                  height: "clamp(42px, 6.5cqw, 54px)",
+                  width: "clamp(34px, 5.2cqw, 46px)",
+                  height: "clamp(34px, 5.2cqw, 46px)",
                   borderRadius: "50%",
                   background: idx === 0
                     ? "linear-gradient(135deg, var(--vaigai-red) 0%, #901B12 100%)"
@@ -102,9 +112,9 @@ const EditorialPage = forwardRef(function EditorialPage({ editorial, pageNumber 
                   alignItems: "center",
                   justifyContent: "center",
                   fontFamily: "var(--font-display)",
-                  fontSize: "clamp(16px, 2.6cqw, 20px)",
+                  fontSize: "clamp(13px, 2cqw, 18px)",
                   fontWeight: 800,
-                  boxShadow: "0 4px 10px rgba(0,0,0,0.15)",
+                  boxShadow: "0 3px 8px rgba(0,0,0,0.15)",
                   flexShrink: 0
                 }}
               >
@@ -115,10 +125,10 @@ const EditorialPage = forwardRef(function EditorialPage({ editorial, pageNumber 
                 <div
                   style={{
                     fontFamily: "var(--font-display)",
-                    fontSize: "clamp(17px, 2.9cqw, 22px)",
+                    fontSize: "clamp(14.5px, 2.4cqw, 20px)",
                     fontWeight: 800,
                     color: "var(--ink)",
-                    lineHeight: 1.2
+                    lineHeight: 1.15
                   }}
                 >
                   {member.name}
@@ -126,10 +136,10 @@ const EditorialPage = forwardRef(function EditorialPage({ editorial, pageNumber 
                 <div
                   style={{
                     fontFamily: "var(--font-ui)",
-                    fontSize: "clamp(13px, 2.1cqw, 16px)",
+                    fontSize: "clamp(11px, 1.7cqw, 14px)",
                     fontWeight: 700,
                     color: "var(--vaigai-red)",
-                    marginTop: "0.2cqw"
+                    marginTop: "2px"
                   }}
                 >
                   {member.designation}
@@ -137,12 +147,12 @@ const EditorialPage = forwardRef(function EditorialPage({ editorial, pageNumber 
                 <div
                   style={{
                     fontFamily: "var(--font-ui)",
-                    fontSize: "clamp(12px, 1.9cqw, 14px)",
+                    fontSize: "clamp(10px, 1.5cqw, 12.5px)",
                     color: "var(--ink-muted)",
-                    marginTop: "0.2cqw"
+                    marginTop: "1px"
                   }}
                 >
-                  {member.institution}
+                  {member.dept}
                 </div>
               </div>
             </div>

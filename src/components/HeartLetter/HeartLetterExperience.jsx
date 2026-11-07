@@ -173,100 +173,13 @@ const HeartLetterExperience = ({ isOpen, onClose, ammaData, onPlaySentiment, isM
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 'clamp(12px, 2.5vw, 24px)',
+        padding: 'clamp(8px, 2.5vw, 24px)',
         overflow: 'hidden'
       }}
       onClick={onClose}
     >
       {/* Floating Canvas Animation */}
       <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1 }} />
-
-      {/* Top Floating Controls Bar */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '20px',
-          right: '24px',
-          zIndex: 50,
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px'
-        }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Animated Audio Equalizer Badge */}
-        <div
-          style={{
-            background: 'rgba(20, 33, 61, 0.75)',
-            backdropFilter: 'blur(10px)',
-            border: '1.5px solid rgba(201, 162, 75, 0.5)',
-            borderRadius: '24px',
-            padding: '6px 14px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            color: '#FFD700',
-            fontFamily: 'var(--font-ui)',
-            fontSize: '0.82rem',
-            fontWeight: 700,
-            boxShadow: '0 4px 14px rgba(0,0,0,0.3)'
-          }}
-        >
-          <Music size={15} color="#FFD700" />
-          <span>Sentiment Tribute</span>
-          <div style={{ display: 'flex', alignItems: 'flex-end', gap: '2px', height: '14px' }}>
-            <span className="eq-bar eq-bar-1" />
-            <span className="eq-bar eq-bar-2" />
-            <span className="eq-bar eq-bar-3" />
-            <span className="eq-bar eq-bar-4" />
-          </div>
-        </div>
-
-        {/* Mute / Unmute Button */}
-        <button
-          onClick={onToggleMute}
-          style={{
-            background: 'rgba(255, 255, 255, 0.12)',
-            backdropFilter: 'blur(8px)',
-            border: '1.5px solid rgba(255, 215, 0, 0.45)',
-            color: 'white',
-            borderRadius: '50%',
-            width: '42px',
-            height: '42px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            transition: 'all 0.2s ease',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
-          }}
-          title={isMuted ? "Unmute Music" : "Mute Music"}
-        >
-          {isMuted ? <VolumeX size={18} color="var(--vaigai-red)" /> : <Volume2 size={18} color="var(--gold)" />}
-        </button>
-
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          style={{
-            background: 'linear-gradient(135deg, #D7372B 0%, #A31D14 100%)',
-            border: '1.5px solid #FFD700',
-            color: 'white',
-            borderRadius: '50%',
-            width: '42px',
-            height: '42px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            boxShadow: '0 4px 14px rgba(215, 55, 43, 0.5)',
-            transition: 'all 0.2s ease'
-          }}
-          title="Close Letter (Esc)"
-        >
-          <X size={20} />
-        </button>
-      </div>
 
       {/* The Masterpiece Unfolding Letter Scroll */}
       <div
@@ -276,8 +189,8 @@ const HeartLetterExperience = ({ isOpen, onClose, ammaData, onPlaySentiment, isM
           position: 'relative',
           zIndex: 10,
           maxWidth: '860px',
-          width: '92vw',
-          maxHeight: '90vh',
+          width: 'min(95vw, 860px)',
+          maxHeight: '94vh',
           borderRadius: '18px',
           background: 'linear-gradient(180deg, #FFFDF8 0%, #FAF2E2 100%)',
           boxShadow: '0 30px 90px rgba(0,0,0,0.65), 0 0 60px rgba(201, 162, 75, 0.35)',
@@ -305,30 +218,119 @@ const HeartLetterExperience = ({ isOpen, onClose, ammaData, onPlaySentiment, isM
         />
 
         {/* Golden Corner Embellishments */}
-        <div style={{ position: 'absolute', top: '12px', left: '12px', width: '28px', height: '28px', borderTop: '3px solid var(--gold)', borderLeft: '3px solid var(--gold)', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', top: '12px', right: '12px', width: '28px', height: '28px', borderTop: '3px solid var(--gold)', borderRight: '3px solid var(--gold)', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', bottom: '12px', left: '12px', width: '28px', height: '28px', borderBottom: '3px solid var(--gold)', borderLeft: '3px solid var(--gold)', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', bottom: '12px', right: '12px', width: '28px', height: '28px', borderBottom: '3px solid var(--gold)', borderRight: '3px solid var(--gold)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', top: '12px', left: '12px', width: '28px', height: '28px', borderTop: '3px solid var(--gold)', borderLeft: '3px solid var(--gold)', pointerEvents: 'none', zIndex: 4 }} />
+        <div style={{ position: 'absolute', top: '12px', right: '12px', width: '28px', height: '28px', borderTop: '3px solid var(--gold)', borderRight: '3px solid var(--gold)', pointerEvents: 'none', zIndex: 4 }} />
+        <div style={{ position: 'absolute', bottom: '12px', left: '12px', width: '28px', height: '28px', borderBottom: '3px solid var(--gold)', borderLeft: '3px solid var(--gold)', pointerEvents: 'none', zIndex: 4 }} />
+        <div style={{ position: 'absolute', bottom: '12px', right: '12px', width: '28px', height: '28px', borderBottom: '3px solid var(--gold)', borderRight: '3px solid var(--gold)', pointerEvents: 'none', zIndex: 4 }} />
+
+        {/* Modal Dedicated Top Control Bar (Never overlaps header content) */}
+        <div
+          style={{
+            position: 'relative',
+            zIndex: 5,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: 'clamp(8px, 1.6vw, 12px) clamp(12px, 2.5vw, 24px)',
+            background: 'linear-gradient(90deg, rgba(20, 33, 61, 0.96) 0%, rgba(16, 24, 44, 0.98) 100%)',
+            borderBottom: '1.5px solid rgba(201, 162, 75, 0.5)',
+            color: 'white',
+            gap: '8px'
+          }}
+        >
+          {/* Audio Sentiment Tribute Badge */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'rgba(255, 255, 255, 0.08)',
+              border: '1px solid rgba(201, 162, 75, 0.4)',
+              borderRadius: '20px',
+              padding: '4px 10px',
+              color: '#FFD700',
+              fontFamily: 'var(--font-ui)',
+              fontSize: 'clamp(10px, 1.8vw, 12.5px)',
+              fontWeight: 700
+            }}
+          >
+            <Music size={13} color="#FFD700" />
+            <span>Sentiment Tribute</span>
+            <div style={{ display: 'flex', alignItems: 'flex-end', gap: '2px', height: '12px' }}>
+              <span className="eq-bar eq-bar-1" />
+              <span className="eq-bar eq-bar-2" />
+              <span className="eq-bar eq-bar-3" />
+              <span className="eq-bar eq-bar-4" />
+            </div>
+          </div>
+
+          {/* Action buttons: Mute + Close */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <button
+              onClick={onToggleMute}
+              style={{
+                background: 'rgba(255, 255, 255, 0.12)',
+                backdropFilter: 'blur(8px)',
+                border: '1.5px solid rgba(255, 215, 0, 0.45)',
+                color: 'white',
+                borderRadius: '50%',
+                width: '34px',
+                height: '34px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+              title={isMuted ? "Unmute Music" : "Mute Music"}
+            >
+              {isMuted ? <VolumeX size={15} color="var(--vaigai-red)" /> : <Volume2 size={15} color="var(--gold)" />}
+            </button>
+
+            <button
+              onClick={onClose}
+              style={{
+                background: 'linear-gradient(135deg, #D7372B 0%, #A31D14 100%)',
+                border: '1.5px solid #FFD700',
+                color: 'white',
+                borderRadius: '50%',
+                width: '34px',
+                height: '34px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                boxShadow: '0 4px 12px rgba(215, 55, 43, 0.5)',
+                transition: 'all 0.2s ease'
+              }}
+              title="Close Letter (Esc)"
+            >
+              <X size={17} />
+            </button>
+          </div>
+        </div>
 
         {/* Scroll Header */}
         <div
           style={{
             position: 'relative',
             zIndex: 2,
-            padding: 'clamp(18px, 3vw, 28px) clamp(20px, 3.5vw, 36px) 14px',
-            borderBottom: '1.5px solid rgba(201, 162, 75, 0.45)',
+            padding: 'clamp(12px, 2.2vw, 20px) clamp(14px, 3vw, 32px) clamp(10px, 1.8vw, 14px)',
+            borderBottom: '1.5px solid rgba(201, 162, 75, 0.4)',
             display: 'flex',
+            flexWrap: 'wrap',
             alignItems: 'center',
             justifyContent: 'space-between',
+            gap: '10px',
             background: 'linear-gradient(180deg, rgba(255, 253, 248, 0.98) 0%, rgba(250, 242, 226, 0.92) 100%)'
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: '200px', flex: 1 }}>
             {/* Heart Emblem */}
             <div
               style={{
-                width: '52px',
-                height: '52px',
+                width: 'clamp(40px, 6vw, 48px)',
+                height: 'clamp(40px, 6vw, 48px)',
                 borderRadius: '50%',
                 background: 'linear-gradient(135deg, #D7372B 0%, #8A1710 100%)',
                 display: 'flex',
@@ -340,30 +342,30 @@ const HeartLetterExperience = ({ isOpen, onClose, ammaData, onPlaySentiment, isM
                 animation: 'heartBeat 2.2s infinite'
               }}
             >
-              <Heart size={28} color="#FFFDF9" fill="#FFFDF9" />
+              <Heart size={22} color="#FFFDF9" fill="#FFFDF9" />
             </div>
 
             <div>
-              <div style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', fontWeight: 800, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--vaigai-red)' }}>
+              <div style={{ fontFamily: 'var(--font-ui)', fontSize: 'clamp(10px, 1.7vw, 12px)', fontWeight: 800, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--vaigai-red)' }}>
                 A Heartfelt Tribute • Alma Mater
               </div>
-              <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.4rem, 2.8vw, 2rem)', fontWeight: 800, color: 'var(--navy)', lineHeight: 1.15 }}>
+              <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.15rem, 2.4vw, 1.75rem)', fontWeight: 800, color: 'var(--navy)', lineHeight: 1.15, margin: 0 }}>
                 {ammaData?.letter?.title || "In Honour & Eternal Gratitude to Vaigai"}
               </h2>
             </div>
           </div>
 
           {/* Reveal Controls (Replay & Reveal All) */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
             <button
               onClick={handleReplay}
               style={{
                 background: 'rgba(20, 33, 61, 0.08)',
                 border: '1px solid rgba(201, 162, 75, 0.5)',
                 borderRadius: '20px',
-                padding: '6px 12px',
+                padding: '5px 11px',
                 fontFamily: 'var(--font-ui)',
-                fontSize: '0.78rem',
+                fontSize: 'clamp(11px, 1.6vw, 12.5px)',
                 fontWeight: 700,
                 color: 'var(--navy)',
                 display: 'inline-flex',
@@ -385,9 +387,9 @@ const HeartLetterExperience = ({ isOpen, onClose, ammaData, onPlaySentiment, isM
                   background: 'rgba(215, 55, 43, 0.1)',
                   border: '1px solid rgba(215, 55, 43, 0.4)',
                   borderRadius: '20px',
-                  padding: '6px 12px',
+                  padding: '5px 11px',
                   fontFamily: 'var(--font-ui)',
-                  fontSize: '0.78rem',
+                  fontSize: 'clamp(11px, 1.6vw, 12.5px)',
                   fontWeight: 700,
                   color: 'var(--vaigai-red)',
                   display: 'inline-flex',
@@ -411,11 +413,13 @@ const HeartLetterExperience = ({ isOpen, onClose, ammaData, onPlaySentiment, isM
           style={{
             position: 'relative',
             zIndex: 2,
-            padding: 'clamp(18px, 3vw, 32px) clamp(22px, 4vw, 44px)',
+            padding: 'clamp(14px, 2.5vw, 24px) clamp(16px, 3.5vw, 36px)',
             display: 'flex',
             flexDirection: 'column',
-            gap: '18px',
+            gap: 'clamp(12px, 2.2vw, 18px)',
             overflowY: 'auto',
+            overflowX: 'hidden',
+            WebkitOverflowScrolling: 'touch',
             flex: 1
           }}
         >
@@ -425,18 +429,19 @@ const HeartLetterExperience = ({ isOpen, onClose, ammaData, onPlaySentiment, isM
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(248, 238, 220, 0.8) 100%)',
-              border: '1.5px solid rgba(201, 162, 75, 0.5)',
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 238, 220, 0.95) 100%)',
+              border: '1.5px solid rgba(201, 162, 75, 0.55)',
               borderRadius: '14px',
-              padding: '12px',
-              boxShadow: '0 8px 24px rgba(20, 33, 61, 0.1)',
-              marginBottom: '6px'
+              padding: 'clamp(10px, 1.8vw, 14px)',
+              boxShadow: '0 8px 24px rgba(20, 33, 61, 0.08)',
+              marginBottom: '4px',
+              flexShrink: 0
             }}
           >
             <div
               style={{
                 width: '100%',
-                height: 'clamp(130px, 18vw, 175px)',
+                maxHeight: 'clamp(160px, 32vw, 260px)',
                 borderRadius: '10px',
                 overflow: 'hidden',
                 position: 'relative',
@@ -444,7 +449,8 @@ const HeartLetterExperience = ({ isOpen, onClose, ammaData, onPlaySentiment, isM
                 background: '#FFFFFF',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                border: '1px solid rgba(201, 162, 75, 0.3)'
               }}
             >
               <img
@@ -452,8 +458,10 @@ const HeartLetterExperience = ({ isOpen, onClose, ammaData, onPlaySentiment, isM
                 alt="Vaigai Graduates Honouring Alma Mater"
                 style={{
                   width: '100%',
-                  height: '100%',
-                  objectFit: 'contain'
+                  height: 'auto',
+                  maxHeight: 'clamp(160px, 32vw, 260px)',
+                  objectFit: 'contain',
+                  filter: 'contrast(1.05) saturate(1.05)'
                 }}
               />
             </div>
@@ -461,14 +469,19 @@ const HeartLetterExperience = ({ isOpen, onClose, ammaData, onPlaySentiment, isM
               style={{
                 marginTop: '8px',
                 fontFamily: 'var(--font-ui)',
-                fontSize: '0.85rem',
-                fontWeight: 700,
+                fontSize: 'clamp(11px, 2vw, 13.5px)',
+                fontWeight: 800,
                 color: 'var(--vaigai-red)',
-                letterSpacing: '0.06em',
-                textTransform: 'uppercase'
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px'
               }}
             >
-              {ammaData?.letter?.tamilLine || "வைகை பொறியியல் கல்லூரி — எங்கள் பெருமை"}
+              <Sparkles size={13} color="#FFD700" />
+              <span>{ammaData?.letter?.tamilLine || "வைகை பொறியியல் கல்லூரி — எங்கள் பெருமை"}</span>
+              <Sparkles size={13} color="#FFD700" />
             </div>
           </div>
 

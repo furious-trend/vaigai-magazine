@@ -33,13 +33,15 @@ export const FacultyProgrammesLeft = forwardRef(function FacultyProgrammesLeft(
           style={{
             flex: 1,
             overflowY: "auto",
+            overflowX: "auto",
+            WebkitOverflowScrolling: "touch",
             borderRadius: "8px",
             border: "1.5px solid #DFD5C3",
             background: "white",
             boxShadow: "0 4px 12px rgba(0,0,0,0.05)"
           }}
         >
-          <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
+          <table style={{ width: "100%", minWidth: "460px", borderCollapse: "collapse", textAlign: "left" }}>
             <thead>
               <tr style={{ background: "var(--navy)", color: "white", fontFamily: "var(--font-ui)", fontSize: "clamp(11px, 1.8cqw, 13px)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                 <th style={{ padding: "10px 12px", width: "8%" }}>Sl.</th>
@@ -116,13 +118,15 @@ export const FacultyProgrammesRight = forwardRef(function FacultyProgrammesRight
           style={{
             flex: 1,
             overflowY: "auto",
+            overflowX: "auto",
+            WebkitOverflowScrolling: "touch",
             borderRadius: "8px",
             border: "1.5px solid #DFD5C3",
             background: "white",
             boxShadow: "0 4px 12px rgba(0,0,0,0.05)"
           }}
         >
-          <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
+          <table style={{ width: "100%", minWidth: "460px", borderCollapse: "collapse", textAlign: "left" }}>
             <thead>
               <tr style={{ background: "var(--navy)", color: "white", fontFamily: "var(--font-ui)", fontSize: "clamp(11px, 1.8cqw, 13px)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                 <th style={{ padding: "10px 12px", width: "8%" }}>Sl.</th>

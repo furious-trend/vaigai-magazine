@@ -91,14 +91,15 @@ const SingleEventPage = forwardRef(function SingleEventPage(
             onClick={() => onOpenLightbox && onOpenLightbox(event.heroImage, event.title)}
             style={{
               position: "relative",
-              height: hasNumbers ? "clamp(200px, 32cqw, 260px)" : "clamp(240px, 42cqw, 330px)",
-              marginBottom: "clamp(10px, 1.4cqw, 16px)",
+              height: hasNumbers ? "clamp(130px, 26cqw, 230px)" : "clamp(160px, 34cqw, 280px)",
+              marginBottom: "clamp(8px, 1.2cqw, 14px)",
               cursor: "pointer",
               borderRadius: "10px",
               overflow: "hidden",
-              border: "2.5px solid #FFFFFF",
-              boxShadow: "0 8px 24px rgba(20, 33, 61, 0.16)",
-              transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
+              border: "2px solid #FFFFFF",
+              boxShadow: "0 6px 20px rgba(20, 33, 61, 0.14)",
+              transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+              flexShrink: 0
             }}
           >
             <div className="tape-top" />
@@ -117,24 +118,24 @@ const SingleEventPage = forwardRef(function SingleEventPage(
             <div
               style={{
                 position: "absolute",
-                bottom: "10px",
-                right: "12px",
+                bottom: "8px",
+                right: "10px",
                 background: "rgba(16, 27, 51, 0.88)",
                 backdropFilter: "blur(6px)",
                 color: "white",
-                padding: "4px 12px",
+                padding: "3px 10px",
                 borderRadius: "20px",
                 fontFamily: "var(--font-ui)",
-                fontSize: "clamp(11.5px, 1.7cqw, 13.5px)",
+                fontSize: "clamp(10.5px, 1.6cqw, 13px)",
                 fontWeight: 700,
                 display: "flex",
                 alignItems: "center",
-                gap: "6px",
-                boxShadow: "0 4px 12px rgba(0,0,0,0.35)",
+                gap: "5px",
+                boxShadow: "0 3px 10px rgba(0,0,0,0.35)",
                 border: "1px solid rgba(255, 215, 0, 0.3)"
               }}
             >
-              <ZoomIn size={14} color="#FFD700" />
+              <ZoomIn size={13} color="#FFD700" />
               <span>{event.galleryImages?.length ? `+${event.galleryImages.length} photos` : "Click to view full"}</span>
             </div>
           </div>

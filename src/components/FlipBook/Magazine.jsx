@@ -29,27 +29,29 @@ const Magazine = ({
 }) => {
   const [dimensions, setDimensions] = useState({ width: 550, height: 778, isMobile: false });
   const [remountKey, setRemountKey] = useState(0);
+  const touchStartRef = React.useRef(null);
 
-  // Responsive book dimension calculation based on viewport and 1:1.414 ratio
+  // Responsive book dimension calculation
   const updateDimensions = useCallback(() => {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     const isMobile = vw < 768;
 
-    let availableWidth = vw - 30;
-    let availableHeight = vh - 85; // compact space for sleek bottom toolbar
-
     let targetWidth, targetHeight;
 
     if (isMobile) {
-      // Single page view
-      targetWidth = Math.min(availableWidth, 580);
-      targetHeight = Math.min(targetWidth * 1.414, availableHeight);
-      targetWidth = targetHeight / 1.414;
+      // Single page view optimized for smartphone screens
+      const availableWidth = Math.min(vw - 12, 480);
+      const availableHeight = vh - 68; // space for bottom mobile toolbar
+
+      targetWidth = Math.max(availableWidth, 280);
+      targetHeight = Math.min(availableHeight, Math.round(targetWidth * 1.52));
     } else {
-      // Dual-page spread
-      // availableWidth is for TWO pages
+      // Dual-page spread for tablets and desktops
+      const availableWidth = vw - 30;
+      const availableHeight = vh - 85;
       const maxSingleWidth = (availableWidth - 30) / 2;
+
       targetHeight = Math.min(availableHeight, 920);
       targetWidth = targetHeight / 1.414;
 
@@ -66,6 +68,36 @@ const Magazine = ({
     });
     setRemountKey((k) => k + 1);
   }, []);
+
+  // Native touch-swipe gesture support for mobile phones
+  const handleTouchStart = (e) => {
+    if (e.touches.length === 1) {
+      touchStartRef.current = {
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY,
+        time: Date.now()
+      };
+    }
+  };
+
+  const handleTouchEnd = (e) => {
+    if (!touchStartRef.current || e.changedTouches.length === 0) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartRef.current.x;
+    const deltaY = e.changedTouches[0].clientY - touchStartRef.current.y;
+    const deltaTime = Date.now() - touchStartRef.current.time;
+
+    // Detect horizontal swipe (horizontal delta > vertical delta, min 45px distance, within 450ms)
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 45 && deltaTime < 450) {
+      if (deltaX < 0) {
+        // Swipe left -> Next page
+        flipBookRef?.current?.pageFlip()?.flipNext();
+      } else {
+        // Swipe right -> Prev page
+        flipBookRef?.current?.pageFlip()?.flipPrev();
+      }
+    }
+    touchStartRef.current = null;
+  };
 
   useEffect(() => {
     updateDimensions();
@@ -239,13 +271,16 @@ const Magazine = ({
 
   return (
     <div
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
       style={{
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         width: "100%",
         height: "100%",
-        position: "relative"
+        position: "relative",
+        touchAction: "pan-y"
       }}
     >
       <HTMLFlipBook
@@ -254,15 +289,15 @@ const Magazine = ({
         width={dimensions.width}
         height={dimensions.height}
         size="fixed"
-        minWidth={320}
+        minWidth={260}
         maxWidth={880}
-        minHeight={440}
+        minHeight={380}
         maxHeight={1250}
         maxShadowOpacity={0.5}
         showCover={true}
         mobileScrollSupport={true}
         onFlip={handleFlip}
-        flippingTime={900}
+        flippingTime={750}
         usePortrait={dimensions.isMobile}
         startPage={currentPage}
         drawShadow={true}

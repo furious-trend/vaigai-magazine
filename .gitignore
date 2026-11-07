@@ -1,33 +1,33 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Production build
+dist/
+build/
+
+# Environment and local files
+.env
+.env.local
+.env.*.local
+.DS_Store
+Thumbs.db
+
 # Logs
-logs
-*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
+*.log
 
-# Dependencies
-node_modules
-dist
-dist-ssr
-*.local
+# Editor directories
+.vscode/
+.idea/
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-Thumbs.db
-
-# Root duplicates (audio and raw files are organized under public/assets/)
-NEWSLETTER final . (1).pdf (1).pdf
-Gemini_Generated_Image_l63acnl63acnl63a.png
+# Large root media / temporary files (already copied to public/assets)
 background bgm for magazine.m4a
 sentiment bgm.mp3
 page flip sound.mp3
+NEWSLETTER*.pdf
+"NEWSLETTER final . (1).pdf (1).pdf"
