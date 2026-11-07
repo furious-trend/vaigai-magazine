@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, BookOpen } from 'lucide-react';
+import { X, BookOpen, ChevronRight, Film } from 'lucide-react';
 
 const ContentsDrawer = ({ isOpen, onClose, toc, onSelectPage }) => {
   if (!isOpen) return null;
@@ -10,8 +10,9 @@ const ContentsDrawer = ({ isOpen, onClose, toc, onSelectPage }) => {
         position: 'fixed',
         inset: 0,
         zIndex: 2200,
-        background: 'rgba(10, 10, 18, 0.75)',
-        backdropFilter: 'blur(5px)',
+        background: 'rgba(5, 5, 5, 0.85)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
         display: 'flex',
         alignItems: 'flex-end',
         justifyContent: 'center'
@@ -21,14 +22,15 @@ const ContentsDrawer = ({ isOpen, onClose, toc, onSelectPage }) => {
       <div
         style={{
           width: '100%',
-          maxWidth: '960px',
-          maxHeight: '75vh',
-          background: '#FFFDF9',
-          borderTopLeftRadius: '16px',
-          borderTopRightRadius: '16px',
-          boxShadow: '0 -10px 40px rgba(0,0,0,0.35)',
-          border: '1px solid #E6DDCF',
-          padding: '24px',
+          maxWidth: '1000px',
+          maxHeight: '80vh',
+          background: '#111111',
+          borderTopLeftRadius: '20px',
+          borderTopRightRadius: '20px',
+          boxShadow: '0 -15px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(255, 200, 61, 0.15)',
+          border: '1px solid rgba(255, 200, 61, 0.3)',
+          borderBottom: 'none',
+          padding: '28px 24px',
           display: 'flex',
           flexDirection: 'column',
           overflow: 'hidden'
@@ -36,18 +38,75 @@ const ContentsDrawer = ({ isOpen, onClose, toc, onSelectPage }) => {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Drawer Header */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(27,27,47,0.1)', paddingBottom: '12px', marginBottom: '16px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <BookOpen size={22} color="var(--vaigai-blue)" />
-            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', fontWeight: 700, color: 'var(--navy)' }}>
-              Jump to Page / Section
-            </h3>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+            paddingBottom: '16px',
+            marginBottom: '20px'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div
+              style={{
+                width: '36px',
+                height: '36px',
+                borderRadius: '8px',
+                background: 'rgba(255, 200, 61, 0.15)',
+                border: '1px solid rgba(255, 200, 61, 0.4)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#FFC83D'
+              }}
+            >
+              <Film size={20} />
+            </div>
+            <div>
+              <h3
+                style={{
+                  fontFamily: "'Bebas Neue', sans-serif",
+                  fontSize: '1.6rem',
+                  letterSpacing: '0.08em',
+                  color: '#FFFFFF',
+                  margin: 0,
+                  lineHeight: 1
+                }}
+              >
+                TABLE OF <span style={{ color: '#FFC83D' }}>CONTENTS</span>
+              </h3>
+              <div
+                style={{
+                  fontSize: '0.72rem',
+                  color: 'rgba(255, 255, 255, 0.5)',
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase'
+                }}
+              >
+                Select Any Section To Jump Instantly In The Flipbook
+              </div>
+            </div>
           </div>
+
           <button
             onClick={onClose}
-            style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--ink-muted)' }}
+            style={{
+              width: '36px',
+              height: '36px',
+              borderRadius: '50%',
+              background: 'rgba(255, 255, 255, 0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.15)',
+              cursor: 'pointer',
+              color: '#FFF',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'all 0.2s ease'
+            }}
           >
-            <X size={22} />
+            <X size={18} />
           </button>
         </div>
 
@@ -57,7 +116,7 @@ const ContentsDrawer = ({ isOpen, onClose, toc, onSelectPage }) => {
             flex: 1,
             overflowY: 'auto',
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
             gap: '12px',
             paddingRight: '6px'
           }}
@@ -73,46 +132,67 @@ const ContentsDrawer = ({ isOpen, onClose, toc, onSelectPage }) => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                padding: '12px 16px',
-                background: 'white',
-                border: '1px solid #EADBCE',
-                borderRadius: '8px',
+                padding: '14px 18px',
+                background: 'rgba(255, 255, 255, 0.03)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                borderRadius: '10px',
                 textAlign: 'left',
                 cursor: 'pointer',
-                transition: 'all 0.2s ease',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.02)'
+                transition: 'all 0.22s cubic-bezier(0.16, 1, 0.3, 1)'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#FAF4E8';
-                e.currentTarget.style.borderColor = 'var(--vaigai-blue)';
+                e.currentTarget.style.background = 'rgba(255, 200, 61, 0.12)';
+                e.currentTarget.style.borderColor = 'rgba(255, 200, 61, 0.6)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'white';
-                e.currentTarget.style.borderColor = '#EADBCE';
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
                 e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
               <div>
                 <span
                   style={{
-                    fontSize: '0.75rem',
-                    fontFamily: 'var(--font-ui)',
-                    fontWeight: 700,
+                    fontSize: '0.7rem',
+                    color: '#FFC83D',
+                    letterSpacing: '0.12em',
                     textTransform: 'uppercase',
-                    color: 'var(--vaigai-red)',
-                    letterSpacing: '0.05em'
+                    fontWeight: 700,
+                    display: 'block',
+                    marginBottom: '2px'
                   }}
                 >
-                  {item.section}
+                  {item.category || 'FEATURE'}
                 </span>
-                <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.05rem', fontWeight: 600, color: 'var(--ink)', marginTop: '2px' }}>
+                <span
+                  style={{
+                    fontFamily: "'Bebas Neue', sans-serif",
+                    fontSize: '1.15rem',
+                    letterSpacing: '0.04em',
+                    color: '#FFFFFF'
+                  }}
+                >
                   {item.title}
-                </div>
+                </span>
               </div>
-              <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.2rem', fontWeight: 800, color: 'var(--navy)', marginLeft: '12px' }}>
-                p. {item.page}
-              </span>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span
+                  style={{
+                    fontSize: '0.85rem',
+                    fontFamily: "'Bebas Neue', monospace",
+                    color: 'rgba(255, 255, 255, 0.5)',
+                    background: 'rgba(0, 0, 0, 0.5)',
+                    padding: '3px 8px',
+                    borderRadius: '4px',
+                    border: '1px solid rgba(255, 255, 255, 0.1)'
+                  }}
+                >
+                  P.{item.page}
+                </span>
+                <ChevronRight size={16} color="#FFC83D" />
+              </div>
             </button>
           ))}
         </div>
@@ -122,4 +202,3 @@ const ContentsDrawer = ({ isOpen, onClose, toc, onSelectPage }) => {
 };
 
 export default ContentsDrawer;
-

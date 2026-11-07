@@ -242,7 +242,7 @@
     "departments": {
       "num": "01",
       "title": "Department-wise Activities",
-      "whisper": "She teaches us to build, one brick, one circuit, one idea at a time.",
+      "whisper": "Fostering engineering rigor, technical craftsmanship, and foundational brilliance.",
       "items": [
         {
           "title": "Civil Engineering: RACE Inauguration",
@@ -264,7 +264,7 @@
     "clubs": {
       "num": "02",
       "title": "Cells, Clubs and Institutional Activities",
-      "whisper": "She taught us we are never only students. We are helpers, givers, citizens.",
+      "whisper": "Empowering students through social responsibility, health awareness, and community service.",
       "items": [
         {
           "title": "Faculty Development Cell: IIC & YOU",
@@ -311,7 +311,7 @@
     "placement": {
       "num": "03",
       "title": "Training and Placement Cell (TPC)",
-      "whisper": "She watches us step out of the door, and quietly prays the world is kind.",
+      "whisper": "Bridging academic intellect with corporate career excellence and industrial readiness.",
       "items": [
         {
           "title": "Expert Talk: Habits of High Performers",
@@ -353,7 +353,7 @@
     "achievements": {
       "num": "04",
       "title": "Achievements",
-      "whisper": "Every prize we win, she keeps in her heart first.",
+      "whisper": "Honoring national academic laurels, high-impact research, and student distinction.",
       "items": [
         {
           "title": "Programmes Attended by Faculty Members",
