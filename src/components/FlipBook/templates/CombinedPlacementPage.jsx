@@ -102,7 +102,7 @@ const CombinedPlacementPage = forwardRef(function CombinedPlacementPage(
 
             <div style={{ fontFamily: "var(--font-body)", fontSize: "clamp(13px, 2.1cqw, 16px)", lineHeight: 1.55, color: "var(--ink)", marginBottom: "clamp(10px, 1.6cqw, 16px)" }}>
               <p>
-                The Training and Placement Cell (TPC) organized TACT – Level 1 on 20 August 2026 for IV year students. Dr. R. Sivaranjani, Principal (i/c), along with the Heads of Departments, supported and guided the programme. The initiative focused on enhancing students' aptitude, technical competencies and career readiness through structured training sessions.
+                The Training and Placement Cell (TPC) organized TACT – Level 1 on 20 August 2026 for IV year students. Dr. R. SIVARANJANI, M.E., Ph.D., Principal, along with the Heads of Departments, supported and guided the programme. The initiative focused on enhancing students' aptitude, technical competencies and career readiness through structured training sessions.
               </p>
             </div>
           </div>

@@ -109,7 +109,7 @@ const CinematicFooter = () => {
               EXECUTIVE PATRONAGE
             </h4>
             <div style={{ fontSize: '0.85rem', color: 'rgba(255, 255, 255, 0.7)', lineHeight: 1.6 }}>
-              <div style={{ fontWeight: 700, color: '#FFF' }}>Dr. R. Mahendran, M.E., Ph.D.</div>
+              <div style={{ fontWeight: 700, color: '#FFF' }}>Dr. R. SIVARANJANI, M.E., Ph.D.</div>
               <div style={{ fontSize: '0.78rem', color: '#FFC83D', marginBottom: '8px' }}>Principal & Patron</div>
               <div style={{ fontWeight: 700, color: '#FFF' }}>Editorial Committee & HOD Council</div>
               <div style={{ fontSize: '0.78rem', color: 'rgba(255, 255, 255, 0.5)' }}>Civil • Mech • EEE • ECE • CSE • S&H</div>
