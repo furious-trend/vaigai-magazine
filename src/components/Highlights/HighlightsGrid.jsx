@@ -333,3 +333,4 @@ const HighlightsGrid = ({ onJumpToPage, onOpenLightbox }) => {
 };
 
 export default HighlightsGrid;
+

@@ -32,8 +32,9 @@ const CinematicFooter = () => {
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
               <img
                 src="/assets/images/logo.webp"
+                onError={(e) => { e.target.src = "/assets/images/logo.png"; }}
                 alt="Vaigai Crest"
-                style={{ width: '42px', height: '42px', objectFit: 'contain' }}
+                style={{ height: '48px', width: 'auto', objectFit: 'contain', filter: 'drop-shadow(0 2px 8px rgba(255, 200, 61, 0.35))' }}
               />
               <div>
                 <div
@@ -159,3 +160,4 @@ const CinematicFooter = () => {
 };
 
 export default CinematicFooter;
+

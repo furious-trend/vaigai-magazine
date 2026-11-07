@@ -105,26 +105,26 @@ const CinematicNavbar = ({
           >
             <div
               style={{
-                width: '38px',
-                height: '38px',
-                borderRadius: '8px',
-                background: 'radial-gradient(circle, rgba(255, 200, 61, 0.2) 0%, rgba(0,0,0,0.8) 100%)',
-                border: '1px solid rgba(255, 200, 61, 0.4)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                overflow: 'hidden',
-                boxShadow: '0 0 15px rgba(255, 200, 61, 0.3)'
+                padding: '4px 8px',
+                borderRadius: '8px',
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 200, 61, 0.35)',
+                boxShadow: '0 0 15px rgba(255, 200, 61, 0.25)',
+                transition: 'transform 0.2s ease'
               }}
             >
               <img
                 src="/assets/images/logo.webp"
+                onError={(e) => { e.target.src = "/assets/images/logo.png"; }}
                 alt="Vaigai Emblem"
                 style={{
-                  width: '28px',
-                  height: '28px',
+                  height: '40px',
+                  width: 'auto',
                   objectFit: 'contain',
-                  filter: 'drop-shadow(0 0 4px rgba(255, 200, 61, 0.5))'
+                  filter: 'drop-shadow(0 0 6px rgba(255, 200, 61, 0.4))'
                 }}
               />
             </div>

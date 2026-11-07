@@ -445,3 +445,4 @@ const TrendingSection = ({ onJumpToPage }) => {
 };
 
 export default TrendingSection;
+

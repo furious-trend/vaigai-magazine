@@ -131,6 +131,43 @@ const CinematicHero = ({ onReadIssue, onExploreTrending }) => {
           <Flame size={15} color="#E50914" />
         </div>
 
+        {/* Medium-Sized Official College Logo with Golden Aura */}
+        <div
+          style={{
+            position: 'relative',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: '4px 0 -4px'
+          }}
+        >
+          <div
+            style={{
+              position: 'absolute',
+              width: '120px',
+              height: '70px',
+              background: 'radial-gradient(circle, rgba(255, 200, 61, 0.35) 0%, rgba(229, 9, 20, 0.15) 50%, transparent 70%)',
+              filter: 'blur(20px)',
+              borderRadius: '50%',
+              pointerEvents: 'none'
+            }}
+          />
+          <img
+            src="/assets/images/logo.webp"
+            onError={(e) => { e.target.src = "/assets/images/logo.png"; }}
+            alt="Vaigai College of Engineering Official Emblem"
+            style={{
+              height: 'clamp(60px, 8.5vw, 82px)',
+              width: 'auto',
+              objectFit: 'contain',
+              filter: 'drop-shadow(0 4px 16px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 18px rgba(255, 200, 61, 0.45))',
+              position: 'relative',
+              zIndex: 1,
+              transition: 'transform 0.3s ease'
+            }}
+          />
+        </div>
+
         {/* Institution Subheading */}
         <div
           style={{

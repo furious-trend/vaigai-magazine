@@ -79,9 +79,9 @@ const CinematicPreloader = ({ onComplete }) => {
       <div
         style={{
           position: 'relative',
-          width: '120px',
-          height: '100px',
-          marginBottom: '28px',
+          width: '140px',
+          height: '95px',
+          marginBottom: '24px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center'
@@ -178,3 +178,4 @@ const CinematicPreloader = ({ onComplete }) => {
 };
 
 export default CinematicPreloader;
+
