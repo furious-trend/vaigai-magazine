@@ -186,13 +186,13 @@
     },
     {
       "page": 34,
-      "title": "Acknowledgements and Official Contact",
+      "title": "Acknowledgements & Academic Milestones",
       "section": "Closing"
     },
     {
       "page": 35,
-      "title": "A Tribute to Vaigai — The Heart Letter",
-      "section": "Tribute"
+      "title": "Institutional Directory & Colophon",
+      "section": "Directory"
     }
   ],
   "ikigai": {
@@ -1589,8 +1589,8 @@
     }
   },
   "closing": {
-    "title": "In Gratitude to Vaigai",
-    "whisper": "With deepest gratitude to our institution, faculty, and founders.",
+    "title": "Academic Acknowledgements",
+    "whisper": "Celebrating institutional excellence, research, and holistic student achievement.",
     "message": "Thank you for reading the inaugural issue of Vaigai's Ikigai. We look forward to sharing our journey of purpose and possibility with you in the editions to come.",
     "contact": {
       "institution": "Vaigai College of Engineering",
@@ -1599,7 +1599,7 @@
       "website": "www.vaigai.org",
       "email": "vaigaioffice@gmail.com"
     },
-    "image": "/assets/images/amma.webp"
+    "image": "/assets/images/events/cover_campus_hero.webp"
   },
   "backCover": {
     "title": "VAIGAI'S IKIGAI",

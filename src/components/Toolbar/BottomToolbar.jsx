@@ -7,7 +7,6 @@ import {
   Maximize2,
   Minimize2,
   BookOpen,
-  Heart,
   Download,
   Share2,
   MoreHorizontal,
@@ -24,8 +23,7 @@ const BottomToolbar = ({
   onToggleMute,
   volume,
   onChangeVolume,
-  onOpenContents,
-  onOpenAmmaLetter
+  onOpenContents
 }) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showShareToast, setShowShareToast] = useState(false);
@@ -205,31 +203,6 @@ const BottomToolbar = ({
           title={isMuted ? 'Unmute (M)' : 'Mute (M)'}
         >
           {isMuted ? <VolumeX size={18} color="var(--vaigai-red)" /> : <Volume2 size={18} color="var(--gold)" />}
-        </button>
-
-        {/* Tribute Heart Letter Button */}
-        <button
-          onClick={onOpenAmmaLetter}
-          style={{
-            background: 'linear-gradient(135deg, rgba(215, 55, 43, 0.4) 0%, rgba(140, 25, 20, 0.5) 100%)',
-            border: '1.5px solid var(--vaigai-red)',
-            color: '#FFFFFF',
-            borderRadius: '24px',
-            padding: isMobile ? '7px 11px' : '6px 14px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            cursor: 'pointer',
-            boxShadow: '0 2px 10px rgba(215, 55, 43, 0.4)'
-          }}
-          title="Experience The Heart Letter (Page 35)"
-        >
-          <Heart size={16} fill="var(--vaigai-red)" color="white" />
-          {!isMobile && (
-            <span style={{ fontFamily: 'var(--font-ui)', fontSize: '0.82rem', fontWeight: 700, color: '#FAF4E8' }}>
-              Heart Letter
-            </span>
-          )}
         </button>
 
         {/* Desktop-only Direct Action Buttons */}

@@ -2,20 +2,17 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import confetti from 'canvas-confetti';
 
 import contentData from './data/content.json';
-import ammaData from './data/amma.json';
 
 import Magazine from './components/FlipBook/Magazine';
 import LightboxModal from './components/Lightbox/LightboxModal';
 import BottomToolbar from './components/Toolbar/BottomToolbar';
 import ContentsDrawer from './components/Toolbar/ContentsDrawer';
-import HeartLetterExperience from './components/HeartLetter/HeartLetterExperience';
 import AmbientBackground from './components/AmbientCanvas/AmbientBackground';
 import { useAudio } from './hooks/useAudio';
 
 function App() {
   const [currentPage, setCurrentPage] = useState(0);
   const [isContentsOpen, setIsContentsOpen] = useState(false);
-  const [isHeartExperienceOpen, setIsHeartExperienceOpen] = useState(false);
   const [lightbox, setLightbox] = useState({ isOpen: false, src: '', caption: '' });
   const [confettiFired, setConfettiFired] = useState({});
   const [hasInteracted, setHasInteracted] = useState(false);
@@ -25,7 +22,6 @@ function App() {
     isMuted,
     volume,
     setVolume,
-    playSentimentBgm,
     playMagazineBgm,
     playPageTurn,
     toggleMute
@@ -35,13 +31,9 @@ function App() {
   const handleUserInteraction = useCallback(() => {
     if (!hasInteracted) {
       setHasInteracted(true);
-      if (isHeartExperienceOpen || (currentPage >= 33 && currentPage <= 34)) {
-        playSentimentBgm();
-      } else {
-        playMagazineBgm();
-      }
+      playMagazineBgm();
     }
-  }, [hasInteracted, isHeartExperienceOpen, currentPage, playSentimentBgm, playMagazineBgm]);
+  }, [hasInteracted, playMagazineBgm]);
 
   // Hash deep linking: read on mount and on hashchange
   useEffect(() => {
@@ -83,19 +75,10 @@ function App() {
     };
   }, []);
 
-  // Sync page to hash, fire celebratory confetti, and switch audio for the closing tribute spread
+  // Sync page to hash and fire celebratory confetti for honours pages
   const handlePageChange = useCallback((newPage) => {
     setCurrentPage(newPage);
     window.history.replaceState(null, '', `#/p/${newPage + 1}`);
-
-    // If on closing spread (Spread 17: Pages 34-35, 0-indexed 33-34), play sentiment song; otherwise play magazine BGM
-    if (newPage >= 33 && newPage <= 34) {
-      playSentimentBgm();
-    } else {
-      if (!isHeartExperienceOpen) {
-        playMagazineBgm();
-      }
-    }
 
     // Confetti celebration trigger for placement/honour success pages (P16-P17 Rank Holders, P23 Maadhesh)
     if ((newPage === 15 || newPage === 16 || newPage === 22) && !confettiFired[newPage]) {
@@ -107,21 +90,15 @@ function App() {
       });
       setConfettiFired((prev) => ({ ...prev, [newPage]: true }));
     }
-  }, [confettiFired, isHeartExperienceOpen, playSentimentBgm, playMagazineBgm]);
+  }, [confettiFired]);
 
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (lightbox.isOpen || isContentsOpen || isHeartExperienceOpen) {
+      if (lightbox.isOpen || isContentsOpen) {
         if (e.key === 'Escape') {
           setLightbox({ isOpen: false, src: '', caption: '' });
           setIsContentsOpen(false);
-          if (isHeartExperienceOpen) {
-            setIsHeartExperienceOpen(false);
-            if (currentPage < 33) {
-              playMagazineBgm();
-            }
-          }
         }
         return;
       }
@@ -147,7 +124,7 @@ function App() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [lightbox.isOpen, isContentsOpen, isHeartExperienceOpen, currentPage, toggleMute, playMagazineBgm]);
+  }, [lightbox.isOpen, isContentsOpen, toggleMute]);
 
   const handlePrev = () => flipBookRef.current?.pageFlip()?.flipPrev();
   const handleNext = () => flipBookRef.current?.pageFlip()?.flipNext();
@@ -155,18 +132,6 @@ function App() {
 
   const handleOpenLightbox = (src, caption) => {
     setLightbox({ isOpen: true, src, caption });
-  };
-
-  const handleOpenHeartExperience = () => {
-    setIsHeartExperienceOpen(true);
-    playSentimentBgm();
-  };
-
-  const handleCloseHeartExperience = () => {
-    setIsHeartExperienceOpen(false);
-    if (currentPage < 33) {
-      playMagazineBgm();
-    }
   };
 
   return (
@@ -199,13 +164,11 @@ function App() {
       >
         <Magazine
           content={contentData}
-          ammaData={ammaData}
           currentPage={currentPage}
           onPageChange={handlePageChange}
           onOpenLightbox={handleOpenLightbox}
           onFlipAudio={playPageTurn}
           flipBookRef={flipBookRef}
-          onOpenHeartExperience={handleOpenHeartExperience}
         />
       </main>
 
@@ -221,10 +184,6 @@ function App() {
         volume={volume}
         onChangeVolume={setVolume}
         onOpenContents={() => setIsContentsOpen(true)}
-        onOpenAmmaLetter={() => {
-          flipBookRef.current?.pageFlip()?.flip(34);
-          handleOpenHeartExperience();
-        }}
       />
 
       {/* Table of Contents Drawer */}
@@ -235,16 +194,6 @@ function App() {
         onSelectPage={(page) => {
           flipBookRef.current?.pageFlip()?.flip(page);
         }}
-      />
-
-      {/* Full-Screen Heart Letter Experience */}
-      <HeartLetterExperience
-        isOpen={isHeartExperienceOpen}
-        onClose={handleCloseHeartExperience}
-        ammaData={ammaData}
-        onPlaySentiment={playSentimentBgm}
-        isMuted={isMuted}
-        onToggleMute={toggleMute}
       />
 
       {/* High-Res Photo Lightbox Modal */}

@@ -13,19 +13,16 @@ import { FacultyProgrammesLeft, FacultyProgrammesRight } from './templates/Table
 import { StudentAchievementPoster, StudentAchievementTable } from './templates/StudentAchievementSpread';
 import { FacultyPublicationsLeft, FacultyPublicationsRight } from './templates/PublicationsSpread';
 import { ToppersPage } from './templates/ToppersSpread';
-import { ClosingRightPage } from './templates/ClosingSpread';
-import HeartLetterPage from './templates/HeartLetterPage';
+import { ClosingLeftPage, ClosingRightPage } from './templates/ClosingSpread';
 import BackCoverPage from './templates/BackCoverPage';
 
 const Magazine = ({
   content,
-  ammaData,
   currentPage,
   onPageChange,
   onOpenLightbox,
   onFlipAudio,
-  flipBookRef,
-  onOpenHeartExperience
+  flipBookRef
 }) => {
   const [dimensions, setDimensions] = useState({ width: 550, height: 778, isMobile: false });
   const [remountKey, setRemountKey] = useState(0);
@@ -260,14 +257,14 @@ const Magazine = ({
         onOpenLightbox={onOpenLightbox}
       />,
 
-      // P34-P35: Spread 17 (Closing Acknowledgements & The Heart Letter)
-      <ClosingRightPage key="p34" closing={content.closing} pageNumber={34} />,
-      <HeartLetterPage key="p35" onOpenExperience={onOpenHeartExperience} pageNumber={35} />,
+      // P34-P35: Spread 17 (Acknowledgements & Official Directory)
+      <ClosingLeftPage key="p34" closing={content.closing} pageNumber={34} />,
+      <ClosingRightPage key="p35" closing={content.closing} pageNumber={35} />,
 
       // P36: Back Cover
       <BackCoverPage key="p36" backCover={content.backCover} pageNumber={36} />
     ];
-  }, [content, eventsMap, onOpenLightbox, handleJumpToPage, onOpenHeartExperience]);
+  }, [content, eventsMap, onOpenLightbox, handleJumpToPage]);
 
   return (
     <div

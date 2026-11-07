@@ -25,9 +25,10 @@ pnpm-debug.log*
 .vscode/
 .idea/
 
-# Large root media / temporary files (already copied to public/assets)
+# Large root media / temporary files / legacy folders
 background bgm for magazine.m4a
 sentiment bgm.mp3
 page flip sound.mp3
 NEWSLETTER*.pdf
 "NEWSLETTER final . (1).pdf (1).pdf"
+vaigai/

@@ -11,46 +11,35 @@ async function main() {
   await page.waitForTimeout(1500);
   await page.screenshot({ path: 'docs/screenshots/mobile_test_cover.png' });
 
-  // Test flipping to next page
-  console.log('Clicking Open on cover or next...');
+  // Test flipping to next page (p2)
+  console.log('Flipping to page 2 (Editorial Desk)...');
   await page.evaluate(() => window.flipToPage && window.flipToPage(1));
-  await page.waitForTimeout(1600);
+  await page.waitForTimeout(1500);
   await page.screenshot({ path: 'docs/screenshots/mobile_test_p2.png' });
 
   // Test page 6 (Single Event)
-  console.log('Flipping to page 6...');
+  console.log('Flipping to page 6 (Civil RACE)...');
   await page.evaluate(() => window.flipToPage && window.flipToPage(5));
-  await page.waitForTimeout(1600);
+  await page.waitForTimeout(1500);
   await page.screenshot({ path: 'docs/screenshots/mobile_test_p6.png' });
 
-  // Test page 35 (Heart Letter Page)
-  console.log('Flipping to page 35...');
+  // Test page 34 (Acknowledgements)
+  console.log('Flipping to page 34 (Acknowledgements)...');
+  await page.evaluate(() => window.flipToPage && window.flipToPage(33));
+  await page.waitForTimeout(1500);
+  await page.screenshot({ path: 'docs/screenshots/mobile_test_p34.png' });
+
+  // Test page 35 (Official Directory)
+  console.log('Flipping to page 35 (Official Directory)...');
   await page.evaluate(() => window.flipToPage && window.flipToPage(34));
-  await page.waitForTimeout(1600);
+  await page.waitForTimeout(1500);
   await page.screenshot({ path: 'docs/screenshots/mobile_test_p35.png' });
 
-  // Open Heart Letter Modal
-  console.log('Opening Heart Letter modal on mobile...');
-  const heartToolbarBtn = page.locator('button[title*="Experience The Heart Letter"]');
-  if (await heartToolbarBtn.count() > 0) {
-    await heartToolbarBtn.click();
-    await page.waitForTimeout(1000);
-    // Click Show All to reveal full letter
-    const showAllBtn = page.locator('button[title*="Show all lines immediately"]');
-    if (await showAllBtn.count() > 0) {
-      await showAllBtn.click();
-    }
-    await page.waitForTimeout(1000);
-    await page.screenshot({ path: 'docs/screenshots/mobile_test_modal.png' });
-
-    // Scroll to bottom of modal
-    await page.evaluate(() => {
-      const container = document.querySelector('div[style*="overflow-y: auto"], div[style*="overflowY: auto"]');
-      if (container) container.scrollTop = container.scrollHeight;
-    });
-    await page.waitForTimeout(500);
-    await page.screenshot({ path: 'docs/screenshots/mobile_test_modal_scrolled.png' });
-  }
+  // Test page 36 (Back Cover)
+  console.log('Flipping to page 36 (Back Cover)...');
+  await page.evaluate(() => window.flipToPage && window.flipToPage(35));
+  await page.waitForTimeout(1500);
+  await page.screenshot({ path: 'docs/screenshots/mobile_test_p36.png' });
 
   await browser.close();
   console.log('Mobile diagnostic screenshots captured.');
