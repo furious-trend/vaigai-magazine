@@ -7,7 +7,21 @@ export default defineConfig({
     port: 3000,
     host: true,
     watch: {
-      ignored: ['**/vaigai/**', '**/node_modules/**', '**/dist/**', '**/*.pdf', '**/*.m4a', '**/*.mp3']
+      ignored: [
+        '**/vaigai/**',
+        '**/node_modules/**',
+        '**/dist/**',
+        '**/docs/**',
+        '**/.git/**',
+        '**/*.docx',
+        '**/*.pdf',
+        '**/*.m4a',
+        '**/*.mp3',
+        '**/*.png',
+        '**/*.jpg',
+        '**/*.jpeg',
+        '**/*.webp'
+      ]
     }
   }
 });
