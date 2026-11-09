@@ -627,7 +627,7 @@ def main():
                 "rows": [
                     { "sl": "1", "name": "B.B.Gokulnath", "year": "IV", "dept": "ECE", "event": "Vairamuthu Speech Contest", "date": "01.08.2026", "place": "Kalaingar Centenary Library", "prize": "I prize" },
                     { "sl": "2", "name": "C. SANIYA", "year": "IV", "dept": "CSE", "event": "Vairamuthu Speech Contest", "date": "01.08.2026", "place": "Kalaingar Centenary Library", "prize": "II PRIZE" },
-                    { "sl": "3", "name": "MANIMEGALAI", "year": "II", "dept": "ECE", "event": "Vairamuthu Speech Contest", "date": "01.08.2026", "place": "Kalaingar Centenary Library", "prize": "III PRIZE" }
+                    { "sl": "3", "name": "SRIRAM", "year": "II", "dept": "MECH", "event": "Vairamuthu Speech Contest", "date": "01.08.2026", "place": "Kalaingar Centenary Library", "prize": "III PRIZE" }
                 ]
             },
             "facultyPublications": {
